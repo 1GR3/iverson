@@ -34,6 +34,14 @@ const config: GatsbyConfig = {
         apiKey: process.env.HUBSPOT_API_KEY, // Use environment variable for security
       },
     },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /images/ // Include the directory where your SVG files are stored
+        }
+      }
+    },
   ],
 };
 
