@@ -58,7 +58,7 @@ const IndexPage: React.FC<PageProps> = () => {
 
       {/* Footer */}
       <footer className="position-fixed bottom-0 w-100 d-flex justify-content-center">
-        <button type="button" className="btn btn-link btn-lg p-0 text-decoration-none">
+        <button type="button" className="btn btn-link btn-lg py-3 text-decoration-none">
           START JOURNEY
         </button>
       </footer>
