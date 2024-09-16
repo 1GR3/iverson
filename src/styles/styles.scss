@@ -1,1 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "./_bootstrap.scss";
+
+body {
+
+    h1,
+    .btn {
+        font-family: "Hanken Grotesk", sans-serif;
+        font-size: 24.5px;
+        font-weight: 700;
+    }
+
+    .btn-link {
+        line-height: 1;
+        color: $body-color;
+    }
+}
