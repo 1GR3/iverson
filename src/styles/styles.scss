@@ -15,4 +15,10 @@ body {
         line-height: 1;
         color: $body-color;
     }
+
+    .logo-lines {
+        fill: none;
+        fill-rule: nonzero;
+        stroke: rgb(253, 236, 218);
+    }
 }
