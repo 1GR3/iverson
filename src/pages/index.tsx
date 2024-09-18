@@ -32,7 +32,7 @@ const IndexPage: React.FC<PageProps> = () => {
   }
 
   return (
-    <div className="overflow-hidden" style={{ height: '500vh' }}>
+    <div className="overflow-hidden" style={{ height: '5000px' }}>
       <animated.div
         style={{
           width: '100vw',
