@@ -12,20 +12,23 @@ const IndexPage: React.FC<PageProps> = () => {
   // Scroll position state
   const [scrollY, setScrollY] = React.useState(0);
 
+  const isBrowser = typeof window !== "undefined";
   // Use the scroll event to trigger the scaling and capture scroll position
-  useScroll(
-    ({ xy: [, y] }) => {
-      const newScale = Math.min(1 + y / 100, 50);
-      api.start({ scale: newScale });
+  if (isBrowser) {
+    useScroll(
+      ({ xy: [, y] }) => {
+        const newScale = Math.min(1 + y / 100, 50);
+        api.start({ scale: newScale });
 
-      // Update scrollY state with current scroll position
-      setScrollY(y);
+        // Update scrollY state with current scroll position
+        setScrollY(y);
 
-      // Log scroll position for debugging
-      console.log("Scroll Y:", y);
-    },
-    { domTarget: window }
-  );
+        // Log scroll position for debugging
+        console.log("Scroll Y:", y);
+      },
+      { domTarget: window }
+    );
+  }
 
   return (
     <div className="overflow-hidden" style={{ height: '500vh' }}>
