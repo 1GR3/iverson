@@ -3,7 +3,7 @@ import type { GatsbyConfig } from "gatsby";
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `iverson`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://gregurec.info/clients/nca/`,
   },
   graphqlTypegen: true,
   plugins: [
@@ -28,12 +28,12 @@ const config: GatsbyConfig = {
         },
       },
     },
-    {
-      resolve: "gatsby-source-hubspot-forms",
-      options: {
-        apiKey: process.env.HUBSPOT_API_KEY, // Use environment variable for security
-      },
-    },
+    // {
+    //   resolve: "gatsby-source-hubspot-forms",
+    //   options: {
+    //     apiKey: process.env.HUBSPOT_API_KEY, // Use environment variable for security
+    //   },
+    // },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
