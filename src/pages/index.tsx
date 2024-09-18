@@ -4,6 +4,7 @@ import "../styles/styles.scss";
 import NCAgraphic from '../images/NCA.tsx';
 import { useSpring, animated } from '@react-spring/web'; // Animation from react-spring
 import { useScroll } from 'react-use-gesture';
+import TextLines from "../components/textLines";
 
 const IndexPage: React.FC<PageProps> = () => {
   // Use spring for the scaling animation
@@ -49,8 +50,9 @@ const IndexPage: React.FC<PageProps> = () => {
       >
         {/* Pass the scroll position as a prop */}
         <NCAgraphic scrollY={scrollY} />
-      </animated.div>
 
+      </animated.div>
+      <TextLines scrollY={scrollY} />
       {/* Header */}
       <header className="position-fixed top-0 w-100 px-4">
         <div className="row">
