@@ -11,8 +11,8 @@ const NCAgraphic: React.FC<NCAgraphicProps> = ({ scrollY }) => {
     const strokeWidth = Math.max(baseStrokeWidth / scale, minStrokeWidth);
 
     // Log the scrollY and calculated stroke width for debugging
-    console.log("ScrollY in NCAgraphic:", scrollY);
-    console.log("Calculated Stroke Width in NCAgraphic:", strokeWidth);
+    // console.log("ScrollY in NCAgraphic:", scrollY);
+    // console.log("Calculated Stroke Width in NCAgraphic:", strokeWidth);
     return (
         <svg
             width="100%"
