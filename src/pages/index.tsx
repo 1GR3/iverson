@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
 import "../styles/styles.scss";
-import NCAgraphic from '../images/NCA.tsx';
+import NCAgraphic from '../components/NCA';
 import { useSpring, animated } from '@react-spring/web'; // Animation from react-spring
 import { useScroll } from 'react-use-gesture';
 import TextLines from "../components/textLines";
