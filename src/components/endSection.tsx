@@ -33,16 +33,16 @@ const EndSection: React.FC = () => {
             <footer className="pb-4">
                 <div className="d-flex justify-content-center fs-4">
                     <a href="#" className="mx-2">
-                        <i class="bi bi-facebook"></i>
+                        <i className="bi bi-facebook"></i>
                     </a>
                     <a href="#" className="mx-2">
-                        <i class="bi bi-twitter-x"></i>
+                        <i className="bi bi-twitter-x"></i>
                     </a>
                     <a href="#" className="mx-2">
-                        <i class="bi bi-instagram"></i>
+                        <i className="bi bi-instagram"></i>
                     </a>
                     <a href="#" className="mx-2">
-                        <i class="bi bi-linkedin"></i>
+                        <i className="bi bi-linkedin"></i>
                     </a>
                 </div>
             </footer>
