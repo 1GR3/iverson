@@ -7,6 +7,7 @@ import { useScroll } from 'react-use-gesture';
 import TextLines from "../components/textLines";
 import ImageFlow from "../components/imageFlow";
 import Beams from "../components/beams";
+import EndSection from "../components/endSection";
 
 const IndexPage: React.FC<PageProps> = () => {
   // Use spring for the scaling animation
@@ -34,7 +35,7 @@ const IndexPage: React.FC<PageProps> = () => {
   }
 
   return (
-    <div className="overflow-hidden" style={{ height: '5000px' }}>
+    <div className="overflow-hidden" style={{ minHeight: '5000px' }}>
       <animated.div
         style={{
           width: '100vw',
@@ -57,6 +58,7 @@ const IndexPage: React.FC<PageProps> = () => {
       <TextLines scrollY={scrollY} />
       <ImageFlow scrollY={scrollY} />
       <Beams scrollY={scrollY} />
+      <EndSection />
       {/* Header */}
       <header className="position-fixed top-0 w-100 px-4">
         <div className="row">
