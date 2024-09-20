@@ -7,6 +7,7 @@
 // Override Bootstrap variables
 $body-bg: #104537;
 $body-color: #FDECDA;
+$danger: #FD5300;
 
 // Optionally customize button colors, form inputs, etc.
 $btn-primary-bg: #104537;
@@ -63,6 +64,7 @@ $gutters: (
 @import "../../node_modules/bootstrap/scss/grid";
 @import "../../node_modules/bootstrap/scss/forms";
 @import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/modal";
 // Helpers
 @import "../../node_modules/bootstrap/scss/helpers";
 // Utilities
@@ -70,6 +72,7 @@ $gutters: (
 @import "../../node_modules/bootstrap/scss/accordion";
 @import "../../node_modules/bootstrap/scss/carousel";
 @import "../../node_modules/bootstrap/scss/transitions";
+
 
 h1,
 h2,
