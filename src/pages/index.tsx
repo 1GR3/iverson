@@ -8,6 +8,11 @@ import TextLines from "../components/textLines";
 import ImageFlow from "../components/imageFlow";
 import Beams from "../components/beams";
 import EndSection from "../components/endSection";
+import SignUpModal from "../components/modal";
+
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 const IndexPage: React.FC<PageProps> = () => {
   // Use spring for the scaling animation
@@ -79,6 +84,7 @@ const IndexPage: React.FC<PageProps> = () => {
           START JOURNEY
         </button>
       </footer>
+      <SignUpModal />
     </div>
   );
 };

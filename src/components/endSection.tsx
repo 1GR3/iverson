@@ -1,6 +1,7 @@
 import React from 'react';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
+
 const EndSection: React.FC = () => {
     return (
         <section className="d-flex flex-column justify-content-between min-vh-100 text-center bg-danger position-relative z-2" style={{ marginTop: '4400px' }}>
@@ -20,7 +21,10 @@ const EndSection: React.FC = () => {
                             Whether you're just getting started or leading the charge, join us in showing
                             that crypto is here for good.
                         </p>
-                        <button className="btn btn-light">SIGN UP</button>
+
+                        <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#signUpModal">
+                            SIGN UP</button>
+
                     </div>
                 </div>
             </div>
@@ -42,6 +46,7 @@ const EndSection: React.FC = () => {
                     </a>
                 </div>
             </footer>
+
         </section>
     );
 };
