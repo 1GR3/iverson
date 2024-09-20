@@ -21,9 +21,9 @@ const Triangle: React.FC<TriangleProps> = ({ scrollY }) => {
 
     return (
         <svg
-            width="50%"
-            height="50%"
-            viewBox="0 0 100 100"
+            width="200px"
+            height="200px"
+            // viewBox="-10 0 10 100"
             style={{
                 position: 'absolute',
                 top: 0,
@@ -31,7 +31,7 @@ const Triangle: React.FC<TriangleProps> = ({ scrollY }) => {
             }}
         >
             {/* Dynamically update the base of the triangle */}
-            <path d={`M0,0 L0,100 L${base},100 Z`} fill="#FD5300" stroke="#FD5300" />
+            <path d={`M0,0 L${-base},100 L${base},100 Z`} fill="#FD5300" stroke="#FD5300" />
         </svg>
     );
 };
@@ -64,7 +64,7 @@ const TriangleQuarter: React.FC<{ scrollY: number }> = ({ scrollY }) => {
 const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
     // Define the beam visibility based on scroll thresholds (similar to TextLines)
     const beamAnimations = [
-        { fadeIn: 3000, fadeOut: 4400 },
+        { fadeIn: 2800, fadeOut: 4400 },
     ];
 
     // Determine which beam group should be visible based on scroll position
