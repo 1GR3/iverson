@@ -5,9 +5,11 @@ const SignUpModal: React.FC = () => {
         <div className="modal fade" id="signUpModal" tabIndex={-1} aria-labelledby="signUpModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
-                    <div className="modal-header">
+                    <div className="modal-header border-0">
                         <h5 className="modal-title" id="signUpModalLabel">Sign Up</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" className="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i className="bi bi-x"></i>
+                        </button>
                     </div>
 
                     <div className="modal-body">
@@ -41,8 +43,8 @@ const SignUpModal: React.FC = () => {
                         </form>
                     </div>
 
-                    <div className="modal-footer text-center">
-                        <small className="text-muted">This is room for a legal disclaimer and linking to any <a href="#">Privacy Policy</a>.</small>
+                    <div className="modal-footer text-center d-block border-0">
+                        <small className="">This is room for a legal disclaimer and linking to any <a href="#">Privacy Policy</a>.</small>
                     </div>
                 </div>
             </div>
