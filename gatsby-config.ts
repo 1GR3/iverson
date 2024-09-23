@@ -1,6 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
+  pathPrefix: `/clients/nca`,
   siteMetadata: {
     title: `iverson`,
     siteUrl: `https://gregurec.info/clients/nca/`,
