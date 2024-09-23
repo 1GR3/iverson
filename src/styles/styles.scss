@@ -1,12 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
-
 @import "./_bootstrap.scss";
+
+@font-face {
+    font-family: 'American Grotesk';
+    src: url('/fonts/american-grotesk-regular.woff2') format('woff2'),
+        url('/fonts/AmericanGrotesk-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'American Grotesk';
+    src: url('/fonts/american-grotesk-bold.woff2') format('woff2'),
+        url('/fonts/AmericanGrotesk-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
 
 body {
     $serif: "Immortel Infra G1 Trial", Georgia, 'Times New Roman', Times, serif;
-    $sans-serif: "Hanken Grotesk", Helvetica, Arial, sans-serif;
+    $sans-serif: "American Grotesk", Helvetica, Arial, sans-serif;
+    --bs-font-sans-serif: $sans-serif;
 
-    h1,
+    h1 {
+        font-size: 16px;
+
+        @include media-breakpoint-up(md) {
+            font-size: 24px;
+        }
+    }
+
     .btn {
         font-family: $sans-serif;
         font-size: 24.5px;
