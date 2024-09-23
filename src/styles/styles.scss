@@ -50,27 +50,43 @@ body {
 
     .text-lines {
         font-family: $serif;
-        font-size: 40px;
+        font-size: 20px;
         font-weight: 400;
-        line-height: 44px;
+        line-height: 22px;
         text-align: center;
+
+        @include media-breakpoint-up(md) {
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 44px;
+        }
     }
 
     .btn {
         font-size: 18px;
         line-height: 18px;
         font-weight: 700;
-        padding: 24px;
+        padding: 1rem 1.25rem;
         border-radius: 40px;
 
+        @include media-breakpoint-up(md) {
+            padding: 1.5rem 2rem;
+        }
+
+        &.btn-light {
+            --bs-btn-color: #FD5300;
+            color: #FD5300;
+            background: #FDECDA;
+            --bs-btn-hover-border-color: #FDECDA;
+        }
+
+        &.btn-sm {
+            font-size: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
     }
 
-    .btn-light {
-        color: #FD5300;
-        background: #FDECDA;
-
-
-    }
 
     footer {
         a {
@@ -88,6 +104,9 @@ body {
         --bs-modal-bg: white;
         --bs-body-color: #111111;
         color: var(--bs-body-color);
+        --bs-modal-width: 640px;
+        --bs-modal-padding: 1rem 3rem;
+        --bs-modal-border-radius: 28px;
 
         .modal-title {
             font-family: $serif;
@@ -95,6 +114,18 @@ body {
             text-align: center;
             display: block;
             width: 100%;
+        }
+
+        .modal-body {
+            --bs-modal-padding: 1rem 1rem;
+
+            @include media-breakpoint-up(md) {
+                --bs-modal-padding: 1rem 3rem;
+            }
+        }
+
+        .form-label {
+            margin-bottom: 0.25rem;
         }
 
         .form-control,
@@ -117,6 +148,7 @@ body {
     .modal-backdrop {
         //z-index: 2;
         backdrop-filter: blur(5px);
+        background-color: rgba(white, .01);
     }
 
 
