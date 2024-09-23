@@ -22,6 +22,9 @@ body {
     $serif: "Immortel Infra G1 Trial", Georgia, 'Times New Roman', Times, serif;
     $sans-serif: "American Grotesk", Helvetica, Arial, sans-serif;
     --bs-font-sans-serif: $sans-serif;
+    // --bs-body-font-family: $sans-serif;
+
+    font-family: $sans-serif;
 
     h1 {
         font-size: 16px;
@@ -133,10 +136,20 @@ body {
             background-color: white !important;
             // background-color: var(--bs-body-bg) !important;
             color: #111111;
+            border: 1px solid rgba(#111111, .25);
+
+            &.is-invalid {
+                border-color: #FD0000;
+            }
 
             &::placeholder {
                 color: #111111;
                 opacity: .5;
+            }
+
+            &:focus {
+                border: 1px solid rgba(#111111, .5);
+                box-shadow: 0 0 3px 3px #FDECDA
             }
         }
 

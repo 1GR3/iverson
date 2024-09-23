@@ -1,6 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SignUpModal: React.FC = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [errors, setErrors] = useState({
+        name: '',
+        email: ''
+    });
+
+    // Validation functions
+    const validateName = () => {
+        if (name.trim() === '') {
+            return 'Name is required';
+        } else if (!/^[a-zA-Z ]{2,30}$/.test(name)) {
+            return 'Name must be between 2 and 30 characters and contain only letters and spaces';
+        }
+        return '';
+    };
+
+    const validateEmail = () => {
+        if (email.trim() === '') {
+            return 'Email is required';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return 'Email is invalid';
+        }
+        return '';
+    };
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault(); // Prevent form from submitting
+        const nameError = validateName();
+        const emailError = validateEmail();
+
+        if (nameError || emailError) {
+            setErrors({ name: nameError, email: emailError });
+        } else {
+            setErrors({ name: '', email: '' });
+            // Proceed with form submission logic here
+            console.log('Form submitted successfully with:', { name, email });
+        }
+    };
+
     return (
         <div className="modal fade" id="signUpModal" tabIndex={-1} aria-labelledby="signUpModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
@@ -16,20 +56,41 @@ const SignUpModal: React.FC = () => {
 
                     <div className="modal-body">
                         <p className="text-center">This is a text to provide context to the form.</p>
-                        <form>
+                        <form onSubmit={handleSubmit}>
+                            {/* Name Input */}
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">Name <span className="text-danger">*</span></label>
-                                <input type="text" className="form-control" id="name" placeholder="e.g. Jane Smith" required />
+                                <input
+                                    type="text"
+                                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                                    id="name"
+                                    placeholder="e.g. Jane Smith"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
+                                {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                             </div>
 
+                            {/* Email Input */}
                             <div className="mb-3">
                                 <label htmlFor="email" className="form-label">Email<span className="text-danger">*</span></label>
-                                <input type="email" className="form-control" id="email" placeholder="e.g. jane@nca.org" required />
+                                <input
+                                    type="email"
+                                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                                    id="email"
+                                    placeholder="e.g. jane@nca.org"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                             </div>
 
+                            {/* State Selection */}
                             <div className="mb-3">
                                 <label htmlFor="state" className="form-label">State</label>
-                                <select class="form-select" aria-label="Select a state" id="state">
+                                <select className="form-select" aria-label="Select a state" id="state">
                                     <option value="" selected>Select a state</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
@@ -84,6 +145,7 @@ const SignUpModal: React.FC = () => {
                                 </select>
                             </div>
 
+                            {/* Crypto Experience Selection */}
                             <div className="mb-4">
                                 <label htmlFor="cryptoExperience" className="form-label">Crypto experience</label>
                                 <select className="form-select" id="cryptoExperience">
@@ -93,12 +155,13 @@ const SignUpModal: React.FC = () => {
                                 </select>
                             </div>
 
+                            {/* Submit Button */}
                             <button type="submit" className="btn btn-dark btn-sm w-100">SIGN UP</button>
                         </form>
                     </div>
 
                     <div className="modal-footer text-center d-block border-0 pt-4 pb-5">
-                        <small className="">This is room for a legal disclaimer and linking to any <a href="#" className="text-dark">Privacy Policy</a>.</small>
+                        <small>This is room for a legal disclaimer and linking to any <a href="#" className="text-dark">Privacy Policy</a>.</small>
                     </div>
                 </div>
             </div>
