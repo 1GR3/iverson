@@ -11,7 +11,11 @@ import EndSection from "../components/endSection";
 import SignUpModal from "../components/modal";
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// Dynamically import bootstrap on the client side
+const isBrowser = typeof window !== "undefined";
+if (isBrowser) {
+  import('bootstrap/dist/js/bootstrap.bundle.min.js');
+}
 
 
 const IndexPage: React.FC<PageProps> = () => {
