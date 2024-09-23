@@ -13,7 +13,7 @@ const EndSection: React.FC = () => {
             {/* <div className="d-flex flex-column justify-content-center align-items-center"> */}
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-9 col-lg-7 mx-auto">
+                    <div className="col-12">
                         <p className="text-lines mb-5">
                             We give you the tools needed to<br />
                             unlock the full potential of crypto.
