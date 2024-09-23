@@ -15,10 +15,12 @@ const EndSection: React.FC = () => {
                 <div className="row">
                     <div className="col-12 col-md-9 col-lg-7 mx-auto">
                         <p className="text-lines mb-5">
-                            We give you the tools needed to unlock the full potential of crypto.
+                            We give you the tools needed to<br />
+                            unlock the full potential of crypto.
                         </p>
                         <p className="text-lines mb-5">
-                            Whether you're just getting started or leading the charge, join us in showing
+                            Whether you're just getting started<br />
+                            or leading the charge, join us in showing<br />
                             that crypto is here for good.
                         </p>
 
@@ -33,7 +35,7 @@ const EndSection: React.FC = () => {
             <footer className="pb-4">
                 <div className="d-flex justify-content-center fs-4">
                     <a href="#" className="mx-2">
-                        <i className="bi bi-facebook"></i>
+                        <i className="bi bi-facebook text-light"></i>
                     </a>
                     <a href="#" className="mx-2">
                         <i className="bi bi-twitter-x"></i>

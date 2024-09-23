@@ -48,6 +48,18 @@ body {
 
     }
 
+    footer {
+        a {
+            color: $light;
+            opacity: .7;
+            transition: opacity .3s ease;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
     .modal {
         --bs-modal-bg: white;
         --bs-body-color: #111111;
