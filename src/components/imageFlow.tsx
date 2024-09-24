@@ -2,8 +2,7 @@ import * as React from "react";
 import { useSpring, animated } from '@react-spring/web'; // Animation from react-spring
 import { useScroll } from 'react-use-gesture';
 
-const ImageFlow: React.FC = () => {
-    const [scrollY, setScrollY] = React.useState(0);
+const ImageFlow: React.FC<{ scrollY: number }> = ({ scrollY }) => {
     const isBrowser = typeof window !== "undefined";
 
     // Generate random positions for the images in 3D space (initial Z positions are far from the camera)
@@ -15,9 +14,6 @@ const ImageFlow: React.FC = () => {
         }));
     }, []);
 
-    // Log scrollY for debugging
-    console.log('scrollY:', scrollY);
-
     // Get the spring animation for each image based on the scroll position
     const springs = imagePositions.map((pos, index) =>
         useSpring({
@@ -25,21 +21,8 @@ const ImageFlow: React.FC = () => {
                 z: -4500 + pos.z + scrollY * 1.5, // Move objects closer by reducing Z when scrolling down
             },
             config: { tension: 200, friction: 20 },
-            onFrame: (props) => {
-                console.log(`Image ${index}: Z value - ${props.z}`); // Log the Z values for testing
-            },
         })
     );
-
-    // Use the scroll event to capture scroll position
-    if (isBrowser) {
-        useScroll(
-            ({ xy: [, y] }) => {
-                setScrollY(y); // Update scrollY value
-            },
-            { domTarget: window }
-        );
-    }
 
     return (
         <div className="position-fixed w-100 h-100" style={{ perspective: '1000px', overflow: 'hidden' }}>
@@ -64,4 +47,43 @@ const ImageFlow: React.FC = () => {
     );
 };
 
-export default ImageFlow;
+const ParentComponent: React.FC = () => {
+    const [scrollY, setScrollY] = React.useState(0);
+    const isBrowser = typeof window !== "undefined";
+
+    // Track the scroll position
+    if (isBrowser) {
+        useScroll(
+            ({ xy: [, y] }) => {
+                setScrollY(y);
+            },
+            { domTarget: window }
+        );
+    }
+
+    // Define the scroll threshold for showing ImageFlow
+    const currentIndex = scrollY >= 1251 ? 1 : -1;
+
+    // Use spring for smooth transition of opacity (show/hide ImageFlow)
+    const spring = useSpring({
+        opacity: currentIndex !== -1 ? 1 : 0,
+        config: { tension: 200, friction: 20 },
+    });
+
+    return (
+        <div>
+            {/* Conditionally render the ImageFlow when the threshold is passed */}
+            {currentIndex !== -1 && (
+                <animated.div
+                    style={{
+                        opacity: spring.opacity,
+                    }}
+                >
+                    <ImageFlow scrollY={scrollY} />
+                </animated.div>
+            )}
+        </div>
+    );
+};
+
+export default ParentComponent;
