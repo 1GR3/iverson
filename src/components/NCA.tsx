@@ -1,4 +1,5 @@
-import * as React from "react"
+import * as React from "react";
+
 interface NCAgraphicProps {
     scrollY: number;
 }
@@ -10,9 +11,11 @@ const NCAgraphic: React.FC<NCAgraphicProps> = ({ scrollY }) => {
     const scale = Math.min(1 + scrollY / 100, 50); // Example scaling based on scroll
     const strokeWidth = Math.max(baseStrokeWidth / scale, minStrokeWidth);
 
-    // Log the scrollY and calculated stroke width for debugging
-    // console.log("ScrollY in NCAgraphic:", scrollY);
-    // console.log("Calculated Stroke Width in NCAgraphic:", strokeWidth);
+    // Hide the content after 1250px scroll
+    if (scrollY > 1250) {
+        return null;
+    }
+
     return (
         <svg
             width="100%"
