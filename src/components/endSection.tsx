@@ -4,7 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 const EndSection: React.FC = () => {
     return (
-        <section className="d-flex flex-column justify-content-between min-vh-100 text-center bg-danger position-relative z-2" style={{ marginTop: '4400px' }}>
+        <section className="d-flex flex-column justify-content-between min-vh-100 text-center bg-danger position-relative z-2" style={{ marginTop: '8400px' }}>
             {/* Header */}
             <header className="pt-5">
                 <h1 className="fw-bold">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>

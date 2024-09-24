@@ -10,7 +10,6 @@ import Beams from "../components/beams";
 import EndSection from "../components/endSection";
 import SignUpModal from "../components/modal";
 
-//import 'bootstrap/dist/css/bootstrap.min.css';
 // Dynamically import bootstrap on the client side
 const isBrowser = typeof window !== "undefined";
 if (isBrowser) {
@@ -44,7 +43,7 @@ const IndexPage: React.FC<PageProps> = () => {
   }
 
   return (
-    <div className="overflow-hidden" style={{ minHeight: '5000px' }}>
+    <div className="overflow-hidden" style={{ minHeight: '9000px' }}>
       <animated.div
         style={{
           width: '100vw',
