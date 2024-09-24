@@ -8,9 +8,9 @@ const TextLines: React.FC = () => {
 
     // Define the text lines along with their fade-in and fade-out thresholds
     const textAnimations = [
-        { text: "The full story of crypto is still untold.", fadeIn: 350, fadeOut: 1000 },
-        { text: "Millions of its holders have gone unheard.<br />We’re here to change that.", fadeIn: 1150, fadeOut: 1850 },
-        { text: "Doctors.<br />Filmmakers.<br />Memorabilia collectors.<br />Artists.<br />Contract lawyers.<br />Software developers.", fadeIn: 2000, fadeOut: 3500 },
+        { text: "The full story of crypto is still untold.", fadeIn: 360, fadeOut: 1350 },
+        { text: "Millions of its holders have gone unheard.<br />We’re here to change that.", fadeIn: 1500, fadeOut: 2250 },
+        { text: "Doctors.<br />Filmmakers.<br />Memorabilia collectors.<br />Artists.<br />Contract lawyers.<br />Software developers.", fadeIn: 2500, fadeOut: 3500 },
         { text: "We’re here to amplify your voice.", fadeIn: 3950, fadeOut: 4550 },
         { text: "Loud and clear.", fadeIn: 4700, fadeOut: 5400 },
     ];
