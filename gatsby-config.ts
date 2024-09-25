@@ -1,10 +1,15 @@
 import type { GatsbyConfig } from "gatsby";
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 const config: GatsbyConfig = {
-  pathPrefix: `/clients/nca`,
+  pathPrefix: process.env.GATSBY_PATH_PREFIX || `/`,
   siteMetadata: {
-    title: `iverson`,
-    siteUrl: `https://gregurec.info/clients/nca/`,
+    title: process.env.GATSBY_SITE_TITLE || `Default Title`,
+    siteUrl: process.env.GATSBY_SITE_URL || `https://example.com`,
   },
   graphqlTypegen: true,
   plugins: [
@@ -23,26 +28,31 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-google-gtag",
       options: {
-        trackingIds: [], // Leave this empty until you get your tracking ID
+        trackingIds: isProduction ? [process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID] : [],
+        gtagConfig: {
+          anonymize_ip: true, 
+          cookie_expires: 0,  
+        },
         pluginConfig: {
-          head: true,
+          head: true,        
+          respectDNT: true,  
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /images/,
         },
       },
     },
     // {
     //   resolve: "gatsby-source-hubspot-forms",
     //   options: {
-    //     apiKey: process.env.HUBSPOT_API_KEY, // Use environment variable for security
+    //     apiKey: process.env.HUBSPOT_API_KEY,
     //   },
     // },
-    {
-      resolve: 'gatsby-plugin-react-svg',
-      options: {
-        rule: {
-          include: /images/ // Include the directory where your SVG files are stored
-        }
-      }
-    },
   ],
 };
 
