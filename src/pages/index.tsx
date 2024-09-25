@@ -83,8 +83,8 @@ const IndexPage: React.FC<PageProps> = () => {
 
       {/* Footer */}
       <footer className="position-fixed bottom-0 w-100 d-flex justify-content-center">
-        <button type="button" className="btn btn-link btn-lg py-3 text-decoration-none">
-          START JOURNEY
+        <button type="button" className="btn btn-outline-light btn-lg p-3 mb-3">
+          <i class="bi bi-chevron-down"></i>
         </button>
       </footer>
       <SignUpModal />
