@@ -16,7 +16,6 @@ if (isBrowser) {
   import('bootstrap/dist/js/bootstrap.bundle.min.js');
 }
 
-
 const IndexPage: React.FC<PageProps> = () => {
   // Use spring for the scaling animation
   const [{ scale }, api] = useSpring(() => ({ scale: 1 }));
@@ -42,6 +41,19 @@ const IndexPage: React.FC<PageProps> = () => {
     );
   }
 
+  // Use spring for fading out and moving header and footer based on scroll position
+  const headerFooterSpring = useSpring({
+    opacity: scrollY < 25 ? 1 : scrollY > 150 ? 0 : 1 - (scrollY - 25) / 125,
+    transform: scrollY < 25 ? 'translateY(0px)' : scrollY > 150 ? 'translateY(-16px)' : `translateY(${-(scrollY - 25) / 125 * 16}px)`,
+    config: { tension: 200, friction: 20 },
+  });
+
+  const footerSpring = useSpring({
+    opacity: scrollY < 25 ? 1 : scrollY > 150 ? 0 : 1 - (scrollY - 25) / 125,
+    transform: scrollY < 25 ? 'translateY(0px)' : scrollY > 150 ? 'translateY(16px)' : `translateY(${(scrollY - 25) / 125 * 16}px)`,
+    config: { tension: 200, friction: 20 },
+  });
+
   return (
     <div className="overflow-hidden" style={{ minHeight: '9000px' }}>
       <animated.div
@@ -61,14 +73,15 @@ const IndexPage: React.FC<PageProps> = () => {
       >
         {/* Pass the scroll position as a prop */}
         <NCAgraphic scrollY={scrollY} />
-
       </animated.div>
+
       <TextLines scrollY={scrollY} />
       <ImageFlow scrollY={scrollY} />
       <Beams scrollY={scrollY} />
       <EndSection />
+
       {/* Header */}
-      <header className="position-fixed top-0 w-100 px-4">
+      <animated.header className="position-fixed top-0 w-100 px-4" style={headerFooterSpring}>
         <div className="row">
           <div className="col-12 col-md-6 offset-md-3 order-2 order-md-1 py-3">
             <h1 className="text-center">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
@@ -79,14 +92,15 @@ const IndexPage: React.FC<PageProps> = () => {
             </button>
           </div>
         </div>
-      </header>
+      </animated.header>
 
       {/* Footer */}
-      <footer className="position-fixed bottom-0 w-100 d-flex justify-content-center">
+      <animated.footer className="position-fixed bottom-0 w-100 d-flex justify-content-center" style={footerSpring}>
         <button type="button" className="btn btn-outline-light btn-lg p-3 mb-3">
-          <i class="bi bi-chevron-down"></i>
+          <i className="bi bi-chevron-down"></i>
         </button>
-      </footer>
+      </animated.footer>
+
       <SignUpModal />
     </div>
   );
