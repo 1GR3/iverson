@@ -161,7 +161,7 @@ const SignUpModal: React.FC = () => {
                     </div>
 
                     <div className="modal-footer text-center d-block border-0 pt-4 pb-5">
-                        <small>This is room for a legal disclaimer and linking to any <a href="#" className="text-dark">Privacy Policy</a>.</small>
+                        <small>This is room for a legal disclaimer and linking to any <a href="privacy-policy" className="text-dark" target='_blank'>Privacy Policy</a>.</small>
                     </div>
                 </div>
             </div>
