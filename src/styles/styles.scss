@@ -18,8 +18,17 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Immortel Infra G1';
+    src: url('/fonts/ImmortelInfraG1-Regular.woff') format('woff'),
+        url('/fonts/ImmortelInfraG1-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 body {
-    $serif: "Immortel Infra G1 Trial", Georgia, 'Times New Roman', Times, serif;
+    $serif: "Immortel Infra G1", Arial; //Georgia, 'Times New Roman', Times, serif;
     $sans-serif: "American Grotesk", Helvetica, Arial, sans-serif;
     --bs-font-sans-serif: $sans-serif;
     // --bs-body-font-family: $sans-serif;

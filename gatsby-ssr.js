@@ -18,5 +18,21 @@ export const onRenderBody = ({ setHeadComponents }) => {
             type="font/woff2"
             crossOrigin="anonymous"
         />,
+        <link
+            key="font-preload3"
+            rel="preload"
+            href="/fonts/ImmortelInfraG1-Regular.woff"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+        />,
+        <link
+            key="font-preload4"
+            rel="preload"
+            href="/fonts/ImmortelInfraG1-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+        />,
     ])
 }
