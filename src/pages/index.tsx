@@ -87,8 +87,8 @@ const IndexPage: React.FC<PageProps> = () => {
             <h1 className="text-center">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
           </div>
           <div className="col-12 col-md-3 order-1 order-md-2 text-end py-3">
-            <button type="button" className="btn btn-link btn-lg p-0 text-decoration-none">
-              JOIN NCA
+            <button type="button" className="btn btn-link btn-lg p-0 text-decoration-none text-uppercase">
+              Sign Up
             </button>
           </div>
         </div>
