@@ -1,16 +1,17 @@
 import * as React from "react";
 import { useSpring, animated } from '@react-spring/web'; // Animation from react-spring
 import { useScroll } from 'react-use-gesture';
+import { withPrefix } from 'gatsby';
 
 const ImageFlow: React.FC<{ scrollY: number }> = ({ scrollY }) => {
-    // Array of image URLs from the static folder or wherever you are storing the images
+
     const images = [
-        '/images/img01.jpg',
-        '/images/img02.jpg',
-        '/images/img03.jpg',
-        '/images/img04.jpg',
-        '/images/img05.jpg',
-        '/images/img06.jpg',
+        withPrefix('/images/img01.jpg'),
+        withPrefix('/images/img02.jpg'),
+        withPrefix('/images/img03.jpg'),
+        withPrefix('/images/img04.jpg'),
+        withPrefix('/images/img05.jpg'),
+        withPrefix('/images/img06.jpg'),
     ];
 
     // Define safe zones in percentage to avoid covering the center text
