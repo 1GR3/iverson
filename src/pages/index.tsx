@@ -55,7 +55,7 @@ const IndexPage: React.FC<PageProps> = () => {
   });
 
   return (
-    <div className="overflow-hidden" style={{ minHeight: '9000px' }}>
+    <div className="overflow-hidden" style={{ minHeight: '10000px' }}>
       <animated.div
         style={{
           width: '100vw',
@@ -78,7 +78,7 @@ const IndexPage: React.FC<PageProps> = () => {
       <TextLines scrollY={scrollY} />
       <ImageFlow scrollY={scrollY} />
       <Beams scrollY={scrollY} />
-      <EndSection />
+      <EndSection scrollY={scrollY} />
 
       {/* Header */}
       <animated.header className="position-fixed top-0 w-100 px-4" style={headerFooterSpring}>

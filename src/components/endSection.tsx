@@ -1,16 +1,37 @@
 import React from 'react';
+import { useSpring, animated } from '@react-spring/web';
+import { useScroll } from 'react-use-gesture';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
+const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
+    // Define the scroll range (8200px to 8700px) for the fade-in effect
+    const fadeStart = 7200;
+    const fadeEnd = 7700;
 
-const EndSection: React.FC = () => {
+    // Calculate the opacity based on the scroll position
+    const opacity = Math.min(Math.max((scrollY - fadeStart) / (fadeEnd - fadeStart), 0), 1);
+
+    // Use react-spring for smooth transitions (just for opacity here)
+    const spring = useSpring({
+        opacity, // Set opacity based on scroll
+        config: { tension: 200, friction: 20 },
+    });
+
     return (
-        <section className="d-flex flex-column justify-content-between min-vh-100 text-center bg-danger position-relative z-2" style={{ marginTop: '8400px' }}>
+        <animated.section
+            className="d-flex flex-column justify-content-between min-vh-100 text-center bg-danger position-fixed w-100"
+            style={{
+                top: 0,  // Keep it fixed at the top of the viewport
+                zIndex: 2,  // Ensure it appears on top
+                ...spring,  // Apply the opacity animation from react-spring
+            }}
+        >
             {/* Header */}
             <header className="pt-5">
                 <h1 className="fw-bold">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
             </header>
 
-            {/* <div className="d-flex flex-column justify-content-center align-items-center"> */}
+            {/* Main content */}
             <div className="container">
                 <div className="row">
                     <div className="col-12">
@@ -25,8 +46,8 @@ const EndSection: React.FC = () => {
                         </p>
 
                         <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#signUpModal">
-                            SIGN UP</button>
-
+                            SIGN UP
+                        </button>
                     </div>
                 </div>
             </div>
@@ -48,8 +69,7 @@ const EndSection: React.FC = () => {
                     </a>
                 </div>
             </footer>
-
-        </section>
+        </animated.section>
     );
 };
 
