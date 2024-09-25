@@ -212,5 +212,20 @@ body {
             font-weight: 700;
             margin-bottom: 0;
         }
+
+        ol {
+            li {
+                &::marker {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                }
+
+                p {
+                    margin-left: -2rem;
+                }
+            }
+
+
+        }
     }
 }
