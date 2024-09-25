@@ -1,57 +1,41 @@
 import React from "react";
 import { useSpring, animated } from '@react-spring/web'; // Animation from react-spring
-import { useScroll } from 'react-use-gesture';
 
 interface TriangleProps {
     scrollY: number;
 }
 
 const Triangle: React.FC<TriangleProps> = ({ scrollY }) => {
-    // Ensure scrollY is a valid number
     const safeScrollY = !isNaN(scrollY) ? scrollY : 0;
-
-    // Logic to determine the base of the triangle
     let base = 0;
 
     if (safeScrollY >= 3000) {
-        // Gradually increase the base from 0 to 400 between 3000 and 3500 scrollY
-        const progress = Math.min((safeScrollY - 4100) / 3500, 1); // Get the progress between 4100 and 4600
-        base = progress * 400; // Base increases from 0 to 400
+        const progress = Math.min((safeScrollY - 4100) / 3500, 1);
+        base = progress * 400;
     }
 
     return (
-        <svg
-            width="1000px"
-            height="1000px"
-            style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-            }}
-        >
-            {/* Dynamically update the base of the triangle */}
+        <svg width="1000px" height="1000px" style={{ position: 'absolute', top: 0, left: 0 }}>
             <path d={`M0,0 L${-base},1000 L${base},1000 Z`} fill="#FD5300" stroke="#FD5300" />
         </svg>
     );
 };
 
 const TriangleQuarter: React.FC<{ scrollY: number; heightPercent: number }> = ({ scrollY, heightPercent }) => {
-    const beamCount = 9; // Number of triangles
-    const skewAmount = 7; // Skew amount to slightly tilt each triangle
-
-    // Calculate rotation based on scrollY
-    const rotationDegree = -1 * (scrollY - 4510) / 295; // Rotate up to 10 degrees based on scroll
+    const beamCount = 9;
+    const skewAmount = 7;
+    const rotationDegree = -1 * (scrollY - 4510) / 295;
 
     const triangles = Array.from({ length: beamCount }, (_, i) => (
         <div
             key={i}
             style={{
-                transform: `skewX(${skewAmount * i}deg) rotate(${rotationDegree * i}deg)`, // Added rotation
-                transformOrigin: '0 0', // Upper-left corner for skewing and rotation
+                transform: `skewX(${skewAmount * i}deg) rotate(${rotationDegree * i}deg)`,
+                transformOrigin: '0 0',
                 position: 'absolute',
                 transformBox: 'fill-box',
                 top: 0,
-                left: `${i * 0.125}%`, // Adjust the horizontal shift for each triangle
+                left: `${i * 0.125}%`,
                 width: '100%',
                 height: '100%',
             }}
@@ -67,23 +51,26 @@ const TriangleQuarter: React.FC<{ scrollY: number; heightPercent: number }> = ({
     );
 };
 
-
 const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
-    // Define the beam visibility based on scroll thresholds (similar to TextLines)
-    const beamAnimations = [
-        { fadeIn: 4100, fadeOut: 8400 },
-    ];
-
-    // Determine which beam group should be visible based on scroll position
+    const beamAnimations = [{ fadeIn: 4100, fadeOut: 9400 }];
     const currentIndex = beamAnimations.findIndex(
         (item) => scrollY >= item.fadeIn && scrollY <= item.fadeOut
     );
 
-    // Use spring to smoothly scale the height from 1% to 50% based on scroll position
     const heightSpring = useSpring({
-        heightPercent: scrollY >= 4100 && scrollY <= 8400
-            ? Math.min(50, Math.max(1, (scrollY - 4100) / (8400 - 4100) * 50)) // Calculate the height percent from 1% to 50%
+        heightPercent: scrollY >= 4100 && scrollY <= 9400
+            ? Math.min(50, Math.max(1, (scrollY - 4100) / (6400 - 4100) * 50))
             : 1,
+        config: { tension: 200, friction: 20 },
+    });
+
+    // Spring for top/bottom position transition
+    const positionSpring = useSpring({
+        topBottomPercent: scrollY >= 6750 && scrollY <= 7000
+            ? (scrollY - 6750) / 250 * 3 + 50 // Interpolate between 53% and 50%
+            : scrollY < 6750
+                ? 53
+                : 50, // After 7000px, it should remain at 50%
         config: { tension: 200, friction: 20 },
     });
 
@@ -102,7 +89,7 @@ const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
                             overflow: 'hidden',
                             width: '50%',
                             height: heightSpring.heightPercent.to(h => `${h}%`),
-                            top: '53%', // Starting slightly above the bottom to concentrate beams
+                            top: positionSpring.topBottomPercent.to(v => `${v}%`), // Change top position
                             right: 0,
                         }}
                     >
@@ -116,9 +103,9 @@ const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
                             overflow: 'hidden',
                             width: '50%',
                             height: heightSpring.heightPercent.to(h => `${h}%`),
-                            top: '53%', // Starting slightly above the bottom to concentrate beams
+                            top: positionSpring.topBottomPercent.to(v => `${v}%`), // Change top position
                             left: 0,
-                            transform: 'scaleX(-1)', // Flip horizontally
+                            transform: 'scaleX(-1)',
                         }}
                     >
                         <TriangleQuarter scrollY={scrollY} heightPercent={heightSpring.heightPercent.get()} />
@@ -131,9 +118,9 @@ const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
                             overflow: 'hidden',
                             width: '50%',
                             height: heightSpring.heightPercent.to(h => `${h}%`),
-                            bottom: '53%', // Starting slightly below the top to concentrate beams
+                            bottom: positionSpring.topBottomPercent.to(v => `${v}%`), // Change bottom position
                             right: 0,
-                            transform: 'scaleY(-1)', // Flip vertically
+                            transform: 'scaleY(-1)',
                         }}
                     >
                         <TriangleQuarter scrollY={scrollY} heightPercent={heightSpring.heightPercent.get()} />
@@ -146,9 +133,9 @@ const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
                             overflow: 'hidden',
                             width: '50%',
                             height: heightSpring.heightPercent.to(h => `${h}%`),
-                            bottom: '53%', // Starting slightly below the top to concentrate beams
+                            bottom: positionSpring.topBottomPercent.to(v => `${v}%`), // Change bottom position
                             left: 0,
-                            transform: 'scale(-1, -1)', // Flip both horizontally and vertically
+                            transform: 'scale(-1, -1)',
                         }}
                     >
                         <TriangleQuarter scrollY={scrollY} heightPercent={heightSpring.heightPercent.get()} />
