@@ -169,6 +169,21 @@ body {
             }
         }
 
+        .form-check-input {
+            --bs-form-check-bg: white !important;
+
+            &:checked {
+                background-color: #111111;
+                border-color: #111111;
+            }
+
+            &:focus {
+                border: 1px solid rgba(#111111, .5);
+                outline: 0;
+                box-shadow: 0 0 3px 3px #FDECDA
+            }
+        }
+
         .btn {
             padding: 16px 20px;
         }
@@ -176,6 +191,7 @@ body {
 
     .modal-backdrop {
         //z-index: 2;
+        --bs-backdrop-opacity: 1;
         backdrop-filter: blur(5px);
         background-color: rgba(white, .01);
     }
