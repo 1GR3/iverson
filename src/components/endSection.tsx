@@ -22,12 +22,12 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
             className="d-flex flex-column justify-content-between min-vh-100 text-center bg-danger position-fixed w-100"
             style={{
                 top: 0,  // Keep it fixed at the top of the viewport
-                zIndex: 2,  // Ensure it appears on top
+                zIndex: 3,  // Ensure it appears on top
                 ...spring,  // Apply the opacity animation from react-spring
             }}
         >
             {/* Header */}
-            <header className="pt-5">
+            <header className="pt-3">
                 <h1 className="fw-bold">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
             </header>
 
