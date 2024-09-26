@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 const SignUpModal: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [acceptedTerms, setAcceptedTerms] = useState(false); // Track checkbox state
     const [errors, setErrors] = useState({
         name: '',
-        email: ''
+        email: '',
+        terms: '',
     });
 
     // Validation functions
@@ -27,17 +29,25 @@ const SignUpModal: React.FC = () => {
         return '';
     };
 
+    const validateTerms = () => {
+        if (!acceptedTerms) {
+            return 'You must accept the Terms and Privacy Policy';
+        }
+        return '';
+    };
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault(); // Prevent form from submitting
         const nameError = validateName();
         const emailError = validateEmail();
+        const termsError = validateTerms();
 
-        if (nameError || emailError) {
-            setErrors({ name: nameError, email: emailError });
+        if (nameError || emailError || termsError) {
+            setErrors({ name: nameError, email: emailError, terms: termsError });
         } else {
-            setErrors({ name: '', email: '' });
+            setErrors({ name: '', email: '', terms: '' });
             // Proceed with form submission logic here
-            console.log('Form submitted successfully with:', { name, email });
+            console.log('Form submitted successfully with:', { name, email, acceptedTerms });
         }
     };
 
@@ -54,7 +64,7 @@ const SignUpModal: React.FC = () => {
                         </button>
                     </div>
 
-                    <div className="modal-body">
+                    <div className="modal-body pb-5">
                         <p className="text-center">This is a text to provide context to the form.</p>
                         <form onSubmit={handleSubmit}>
                             {/* Name Input */}
@@ -90,7 +100,7 @@ const SignUpModal: React.FC = () => {
                             {/* State Selection */}
                             <div className="mb-3">
                                 <label htmlFor="state" className="form-label">State</label>
-                                <select className="form-select" aria-label="Select a state" id="state">
+                                <select className="form-select" aria-label="Select a state" id="state" defaultValue="">
                                     <option value="" selected>Select a state</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
@@ -142,6 +152,7 @@ const SignUpModal: React.FC = () => {
                                     <option value="WV">West Virginia</option>
                                     <option value="WI">Wisconsin</option>
                                     <option value="WY">Wyoming</option>
+
                                 </select>
                             </div>
 
@@ -155,14 +166,27 @@ const SignUpModal: React.FC = () => {
                                 </select>
                             </div>
 
+                            {/* Terms and Privacy Policy Checkbox */}
+                            <div className="form-check mb-4">
+                                <input
+                                    type="checkbox"
+                                    className={`form-check-input ${errors.terms ? 'is-invalid' : ''}`}
+                                    id="acceptTerms"
+                                    checked={acceptedTerms}
+                                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                                    required
+                                />
+                                <label className="form-check-label" htmlFor="acceptTerms">
+                                    By becoming a member, you accept our <a href="terms-and-conditions" className="text-dark" target='_blank'>Terms</a> and <a href="privacy-policy" className="text-dark" target='_blank'>Privacy Policy</a>.
+                                </label>
+                                {errors.terms && <div className="invalid-feedback d-block">{errors.terms}</div>}
+                            </div>
+
                             {/* Submit Button */}
                             <button type="submit" className="btn btn-dark btn-sm w-100">SIGN UP</button>
                         </form>
                     </div>
 
-                    <div className="modal-footer text-center d-block border-0 pt-4 pb-5">
-                        <small>This is room for a legal disclaimer and linking to any <a href="privacy-policy" className="text-dark" target='_blank'>Privacy Policy</a>.</small>
-                    </div>
                 </div>
             </div>
         </div>
