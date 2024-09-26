@@ -11,6 +11,11 @@ import Beams from "../components/beams";
 import EndSection from "../components/endSection";
 import SignUpModal from "../components/modal";
 
+// Dynamically import bootstrap on the client side
+const isBrowser = typeof window !== "undefined";
+if (isBrowser) {
+  import('bootstrap/dist/js/bootstrap.bundle.min.js');
+}
 const IndexPage: React.FC<PageProps> = () => {
   const [{ scale }, api] = useSpring(() => ({ scale: 1 }));
   const [scrollY, setScrollY] = React.useState(0);
@@ -84,21 +89,21 @@ const IndexPage: React.FC<PageProps> = () => {
       {/* Header */}
       <animated.header className="position-fixed top-0 w-100 px-4" style={headerFooterSpring}>
         <div className="row">
-          <div className="col-12 col-md-6 offset-md-3 order-2 order-md-1 py-3">
-            <h1 className="text-center">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
-          </div>
-          <div className="col-12 col-md-3 order-1 order-md-2 text-end py-3">
-            <button type="button" className="btn btn-link btn-lg p-0 text-decoration-none text-uppercase">
-              Sign Up
-            </button>
+          <div className="col-12 col-md-6 mx-auto order-2 order-md-1 py-3">
+            <h1 className="text-start text-md-center">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
           </div>
         </div>
       </animated.header>
 
+      <div className="position-fixed top-0 end-0 z-3">
+        <button type="button" className="btn btn-link btn-lg p-3 text-decoration-none text-uppercase signup" data-bs-toggle="modal" data-bs-target="#signUpModal">
+          Sign Up
+        </button>
+      </div>
+
       {/* Footer */}
       <animated.footer className="position-fixed bottom-0 w-100 d-flex justify-content-center" style={footerSpring}>
-        <button type="button" class
-          ="btn btn-outline-light btn-lg p-3 mb-3">
+        <button type="button" className="btn btn-outline-light btn-lg p-3 mb-3">
           <i className="bi bi-chevron-down"></i>
         </button>
       </animated.footer>
