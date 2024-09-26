@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "gatsby";
+import type { HeadFC, PageProps } from "gatsby";
 import "../styles/styles.scss";
 
 const PrivacyPolicyPage = () => {
@@ -160,3 +161,5 @@ const PrivacyPolicyPage = () => {
 };
 
 export default PrivacyPolicyPage;
+
+export const Head: HeadFC = () => <title>NCA - Privacy Policy</title>;
