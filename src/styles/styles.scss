@@ -135,6 +135,12 @@ body {
             width: 100%;
         }
 
+        .btn-close {
+            &:active {
+                border-color: transparent !important;
+            }
+        }
+
         .modal-body {
             --bs-modal-padding: 1rem 1rem;
 
