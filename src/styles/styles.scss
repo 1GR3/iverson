@@ -141,6 +141,10 @@ body {
             }
         }
 
+        .modal-content {
+            border: none !important;
+        }
+
         .modal-body {
             --bs-modal-padding: 1rem 1rem;
 
