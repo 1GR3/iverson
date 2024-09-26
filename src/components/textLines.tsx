@@ -10,9 +10,11 @@ const TextLines: React.FC = () => {
     const textAnimations = [
         { text: "The full story of crypto is still untold.", fadeIn: 360, fadeOut: 1350 },
         { text: "Millions of its holders have gone unheard.<br />We’re here to change that.", fadeIn: 1500, fadeOut: 2250 },
-        { text: "Doctors.<br />Filmmakers.<br />Memorabilia collectors.<br />Artists.<br />Contract lawyers.<br />Software developers.", fadeIn: 2500, fadeOut: 3500 },
-        { text: "If you believe crypto is here for good, we are here for you.", fadeIn: 3950, fadeOut: 5550 },
+        { text: "We see you.<br /><br />Builders.<br />Traders.<br />Small business owners.<br />Gamers.<br />Nine - to - fivers.<br />Shift workers.<br />HODLers.<br />The “just curious.”<br />The “all in.”<br /><br />You are the full story of crypto.", fadeIn: 2500, fadeOut: 3500 },
+        { text: " You are the full story of crypto.<br />That’s why we’re here to represent you.", fadeIn: 3950, fadeOut: 5550 },
     ];
+
+
 
     // Calculate which text should be visible based on scrollY
     const currentIndex = textAnimations.findIndex(
