@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Link } from "gatsby";
+import type { HeadFC, PageProps } from "gatsby";
 import "../styles/styles.scss";
 
-const TermsAndConditions: React.FC = () => {
+const TermsAndConditions: React.FC<PageProps> = () => {
 
     return (
         <div className="legal">
@@ -91,3 +92,5 @@ const TermsAndConditions: React.FC = () => {
 }
 
 export default TermsAndConditions
+
+export const Head: HeadFC = () => <title>NCA - Terms and Conditions</title>;
