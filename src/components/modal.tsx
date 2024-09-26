@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
 
 const SignUpModal: React.FC = () => {
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [acceptedTerms, setAcceptedTerms] = useState(false); // Track checkbox state
     const [errors, setErrors] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         terms: '',
     });
     const [isSubmitted, setIsSubmitted] = useState(false); // Track submission state
 
     // Validation functions
-    const validateName = () => {
-        if (name.trim() === '') {
-            return 'Name is required';
-        } else if (!/^[a-zA-Z ]{2,30}$/.test(name)) {
-            return 'Name must be between 2 and 30 characters and contain only letters and spaces';
+    const validateFirstName = () => {
+        if (firstName.trim() === '') {
+            return 'First name is required';
+        } else if (!/^[a-zA-Z]{2,30}$/.test(firstName)) {
+            return 'First name must be between 2 and 30 characters and contain only letters';
+        }
+        return '';
+    };
+
+    const validateLastName = () => {
+        if (lastName.trim() === '') {
+            return 'Last name is required';
+        } else if (!/^[a-zA-Z]{2,30}$/.test(lastName)) {
+            return 'Last name must be between 2 and 30 characters and contain only letters';
         }
         return '';
     };
@@ -39,14 +50,15 @@ const SignUpModal: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault(); // Prevent form from submitting
-        const nameError = validateName();
+        const firstNameError = validateFirstName();
+        const lastNameError = validateLastName();
         const emailError = validateEmail();
         const termsError = validateTerms();
 
-        if (nameError || emailError || termsError) {
-            setErrors({ name: nameError, email: emailError, terms: termsError });
+        if (firstNameError || lastNameError || emailError || termsError) {
+            setErrors({ firstName: firstNameError, lastName: lastNameError, email: emailError, terms: termsError });
         } else {
-            setErrors({ name: '', email: '', terms: '' });
+            setErrors({ firstName: '', lastName: '', email: '', terms: '' });
             setIsSubmitted(true); // Set the state to show the success message
         }
     };
@@ -70,19 +82,34 @@ const SignUpModal: React.FC = () => {
                             <div className="modal-body pb-5">
                                 <p className="text-center">This is a text to provide context to the form.</p>
                                 <form onSubmit={handleSubmit}>
-                                    {/* Name Input */}
+                                    {/* First Name Input */}
                                     <div className="mb-3">
-                                        <label htmlFor="name" className="form-label">Name <span className="text-danger">*</span></label>
+                                        <label htmlFor="firstName" className="form-label">First Name <span className="text-danger">*</span></label>
                                         <input
                                             type="text"
-                                            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                                            id="name"
-                                            placeholder="e.g. Jane Smith"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
+                                            className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
+                                            id="firstName"
+                                            placeholder="e.g. Jane"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
                                             required
                                         />
-                                        {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+                                        {errors.firstName && <div className="invalid-feedback">{errors.firstName}</div>}
+                                    </div>
+
+                                    {/* Last Name Input */}
+                                    <div className="mb-3">
+                                        <label htmlFor="lastName" className="form-label">Last Name <span className="text-danger">*</span></label>
+                                        <input
+                                            type="text"
+                                            className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
+                                            id="lastName"
+                                            placeholder="e.g. Smith"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
+                                            required
+                                        />
+                                        {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
                                     </div>
 
                                     {/* Email Input */}
@@ -105,7 +132,6 @@ const SignUpModal: React.FC = () => {
                                         <label htmlFor="state" className="form-label">State</label>
                                         <select className="form-select" aria-label="Select a state" id="state" defaultValue="">
                                             <option value="" selected>Select a state</option>
-                                            {/* Options */}
                                             <option value="AL">Alabama</option>
                                             {/* More state options */}
                                         </select>
@@ -152,10 +178,7 @@ const SignUpModal: React.FC = () => {
                                 <i className="bi bi-x fs-3"></i>
                             </button>
                             <div className="my-5">
-                                <svg width="160" height="161" viewBox="0 0 160 161" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M77.8336 105.222L68.9424 159.742L63.2741 158.742L73.567 104.468L55.3435 156.617L49.9339 154.649L69.4931 102.99L42.493 151.179L37.5078 148.3L65.7433 100.819L30.7814 143.591L26.3726 139.891L62.4264 98.0317L20.5658 134.085L16.867 129.676L59.6368 94.7161L12.1567 122.95L9.27944 117.965L57.4727 90.9624L5.80907 110.523L3.84006 105.115L55.989 86.8911L1.71487 97.183L0.715469 91.5148L55.2379 82.6239L0 83.3356V77.5796L55.2347 78.2905L0.715469 69.3992L1.71487 63.7311L55.9872 74.0233L3.84006 55.8003L5.80907 50.391L57.4705 69.9517L9.27944 42.9502L12.1567 37.965L59.6417 66.2021L16.867 31.2384L20.5658 26.8298L62.4251 62.8817L26.3726 21.023L30.7814 17.3239L65.7442 60.098L37.5078 12.6138L42.493 9.73636L69.4949 57.9281L49.9339 6.26616L55.3435 4.29704L73.5665 56.4447L63.2741 2.1719L68.9424 1.17233L77.8332 55.6913L77.1227 0.457031H82.8785L82.1671 55.6951L91.0578 1.17233L96.7261 2.1719L86.4337 56.4469L104.658 4.29704L110.066 6.26616L90.5053 57.9296L117.508 9.73636L122.493 12.6138L94.2578 60.0966L129.219 17.3239L133.629 21.023L97.5774 62.8801L139.434 26.8298L143.134 31.2384L100.361 66.201L147.843 37.965L150.722 42.9502L102.532 69.9509L154.192 50.391L156.16 55.8003L104.013 74.0236L158.285 63.7311L159.285 69.3992L104.766 78.2905L160 77.5796V83.3356L104.763 82.6239L159.285 91.5148L158.285 97.183L104.01 86.8908L156.16 105.115L154.192 110.523L102.53 90.9631L150.722 117.965L147.843 122.95L100.366 94.7174L143.134 129.676L139.434 134.085L97.5761 98.0332L133.629 139.891L129.219 143.591L94.2583 100.82L122.493 148.3L117.508 151.179L90.5062 102.987L110.066 154.649L104.658 156.617L86.4337 104.466L96.7261 158.742L91.0578 159.742L82.1671 105.22L82.8785 160.457H77.1227L77.8336 105.222Z" fill="#F64C07" />
-                                </svg>
-
+                                {/* Success SVG */}
                             </div>
                             <p className='mb-5'>Thank you for signing up.</p>
                             <button type="button" className="btn btn-outline-dark btn-lg" data-bs-dismiss="modal">CLOSE</button>
