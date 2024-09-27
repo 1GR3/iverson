@@ -50,15 +50,31 @@ body {
         font-weight: 700;
 
         &.signup {
-            font-size: 24px;
-            line-height: 24px;
+            font-size: 16px;
+            line-height: 16px;
             font-weight: 700;
+
+            @include media-breakpoint-up(md) {
+                font-size: 24px;
+                line-height: 24px;
+                font-weight: 700;
+            }
         }
     }
 
     .btn-link {
         line-height: 1;
         color: $body-color;
+
+        &:hover {
+            color: $body-color;
+            opacity: 0.8;
+        }
+
+        &:active {
+            color: $body-color;
+            opacity: 0.7;
+        }
     }
 
     .logo-lines {
@@ -97,6 +113,15 @@ body {
             color: #FD5300;
             background: #FDECDA;
             --bs-btn-hover-border-color: #FDECDA;
+
+            &:hover {
+                opacity: .8;
+            }
+
+            &:active {
+                opacity: .7;
+                color: #FD5300;
+            }
         }
 
         &.btn-sm {
@@ -142,8 +167,16 @@ body {
         }
 
         .btn-close {
+            padding: 8px !important;
+
+            &:hover {
+                border-color: transparent !important;
+                background-color: rgba(#111111, .1);
+            }
+
             &:active {
                 border-color: transparent !important;
+                background-color: rgba(#111111, .2);
             }
         }
 
@@ -191,6 +224,16 @@ body {
             &:checked {
                 background-color: #111111;
                 border-color: #111111;
+            }
+
+            &:hover {
+                border-color: #111111;
+                background-color: rgba(#111111, .1);
+
+                &:checked {
+                    background-color: #111111;
+                    border-color: #111111;
+                }
             }
 
             &:focus {
