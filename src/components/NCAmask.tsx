@@ -6,11 +6,14 @@ interface NCAgraphicProps {
 }
 
 const NCAmask: React.FC<NCAgraphicProps> = ({ onAnimationComplete }) => {
-    // Use spring for growing the circle from the center of the screen
+    // Use spring for growing the circle from the center of the screen with easing
     const { r } = useSpring({
         from: { r: 0 },
         to: { r: 1000 }, // Large enough to fill the screen
-        config: { duration: 2000 },
+        config: {
+            duration: 3500,        // Duration in milliseconds
+            easing: t => t * (2 - t) // A simple ease-out function for easing
+        },
         onRest: onAnimationComplete, // Call this when the animation completes
     });
 
@@ -36,7 +39,7 @@ const NCAmask: React.FC<NCAgraphicProps> = ({ onAnimationComplete }) => {
                         <rect width="100%" height="100%" fill="black" />
                         {/* The expanding circle will be the visible area (white) */}
                         <animated.circle
-                            cx="50%" cy="50%" fill="white" r={r} // Expanding circle
+                            cx="50%" cy="50%" fill="white" r={r} // Expanding circle with easing
                         />
                     </mask>
                 </defs>
