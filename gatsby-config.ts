@@ -37,20 +37,20 @@ const config: GatsbyConfig = {
         icon: `src/images/favicon.png`, // Path to the favicon
       },
     },
-    {
-      resolve: "gatsby-plugin-google-gtag",
-      options: {
-        trackingIds: isProduction ? [process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID] : [],
-        gtagConfig: {
-          anonymize_ip: true,
-          cookie_expires: 0,
-        },
-        pluginConfig: {
-          head: true,
-          respectDNT: true,
-        },
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-google-gtag",
+    //   options: {
+    //     trackingIds: isProduction ? [process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID] : [],
+    //     gtagConfig: {
+    //       anonymize_ip: true,
+    //       cookie_expires: 0,
+    //     },
+    //     pluginConfig: {
+    //       head: true,
+    //       respectDNT: true,
+    //     },
+    //   },
+    // },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
