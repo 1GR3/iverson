@@ -115,4 +115,20 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>National Cryptocurrency Association</title>;
+export const Head: HeadFC = () => (
+  <>
+    <title>National Cryptocurrency Association</title>;
+    {/* Open Graph tags */}
+    <meta property="og:title" content="National Cryptocurrency Association" />
+    <meta property="og:description" content="Whether you’re just getting started or leading the charge—if you believe crypto is here for good, we are here for you." />
+    <meta property="og:image" content="https://www.national-cryptocurrency-association.org/images/og-image.jpg" />
+    <meta property="og:url" content="https://www.national-cryptocurrency-association.org" />
+    <meta property="og:type" content="website" />
+
+    {/* Twitter Card tags */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="National Cryptocurrency Association" />
+    <meta name="twitter:description" content="Whether you’re just getting started or leading the charge—if you believe crypto is here for good, we are here for you." />
+    <meta name="twitter:image" content="https://www.national-cryptocurrency-association.org/og-image.jpg" />
+  </>
+)
