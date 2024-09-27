@@ -81,7 +81,7 @@ const SignUpModal: React.FC = () => {
 
                             <div className="modal-body pb-5">
                                 <p className="text-center">This is a text to provide context to the form.</p>
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit} noValidate>
                                     {/* First Name Input */}
                                     <div className="mb-3">
                                         <label htmlFor="firstName" className="form-label">First Name <span className="text-danger">*</span></label>
