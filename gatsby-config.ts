@@ -26,16 +26,28 @@ const config: GatsbyConfig = {
       __key: "images",
     },
     {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `National Cryptocurrency Association`,
+        short_name: `NCA`,
+        start_url: `/`,
+        background_color: `#ffffff`,
+        theme_color: `#000000`,
+        display: `standalone`,
+        icon: `src/images/favicon.png`, // Path to the favicon
+      },
+    },
+    {
       resolve: "gatsby-plugin-google-gtag",
       options: {
         trackingIds: isProduction ? [process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID] : [],
         gtagConfig: {
-          anonymize_ip: true, 
-          cookie_expires: 0,  
+          anonymize_ip: true,
+          cookie_expires: 0,
         },
         pluginConfig: {
-          head: true,        
-          respectDNT: true,  
+          head: true,
+          respectDNT: true,
         },
       },
     },
