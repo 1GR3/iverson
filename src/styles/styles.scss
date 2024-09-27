@@ -125,7 +125,13 @@ body {
         color: var(--bs-body-color);
         --bs-modal-width: 640px;
         --bs-modal-padding: 1rem 3rem;
-        --bs-modal-border-radius: 28px;
+        --bs-modal-border-radius: 0px;
+        --bs-modal-margin: 0rem;
+
+        @include media-breakpoint-up(md) {
+            --bs-modal-width: 640px;
+            --bs-modal-border-radius: 28px;
+        }
 
         .modal-title {
             font-family: $serif;
@@ -194,8 +200,41 @@ body {
             }
         }
 
+        .btn-outline-dark {
+            --bs-btn-border-color: #111111;
+            --bs-btn-hover-border-color: #111111;
+            --bs-btn-active-border-color: #111111;
+
+            &:hover {
+                background-color: rgba(#111111, .1);
+                color: #111111;
+            }
+
+            &:active {
+                background-color: rgba(#111111, .2);
+                color: #111111;
+            }
+        }
+
+        a {
+            &:hover {
+                opacity: .8;
+            }
+
+            &:active {
+                opacity: .7;
+            }
+        }
+
         .btn {
             padding: 16px 20px;
+        }
+
+
+        .min-vh-md-0 {
+            @include media-breakpoint-up(md) {
+                min-height: 0 !important;
+            }
         }
     }
 
