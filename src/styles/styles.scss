@@ -192,6 +192,16 @@ body {
             }
         }
 
+        .invalid-feedback {
+            color: #FD0000;
+
+            svg {
+                margin-right: .25rem;
+                vertical-align: text-bottom;
+
+            }
+        }
+
         .form-label {
             margin-bottom: 0.25rem;
         }
