@@ -46,7 +46,7 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
                         </p>
 
                         <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#signUpModal">
-                            SIGN UP
+                            BECOME A MEMBER
                         </button>
                     </div>
                 </div>

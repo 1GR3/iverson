@@ -164,7 +164,7 @@ const SignUpModal: React.FC = () => {
                                     </div>
 
                                     {/* Submit Button */}
-                                    <button type="submit" className="btn btn-dark btn-sm w-100">SIGN UP</button>
+                                    <button type="submit" className="btn btn-dark btn-sm w-100">BECOME A MEMBER</button>
                                 </form>
                             </div>
                         </>
