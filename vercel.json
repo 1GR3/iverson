@@ -1,10 +1,10 @@
 {
-    "redirects": [
-      {
-        "source": "/(.*)",
-        "destination": "https://www.national-cryptocurrency-association.org/$1",
-        "permanent": true,
-        "target": "production"
-      }
-    ]
-  }
+  // "redirects": [
+  //   {
+  //     "source": "/(.*)",
+  //     "destination": "https://www.national-cryptocurrency-association.org/$1",
+  //     "permanent": true,
+  //     "target": "production"
+  //   }
+  // ]
+}
