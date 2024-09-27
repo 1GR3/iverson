@@ -68,9 +68,9 @@ const SignUpModal: React.FC = () => {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     {!isSubmitted ? (
-                        <>
+                        <div className='min-vh-100 min-vh-md-0'>
                             {/* Original Form */}
-                            <div className="modal-header border-0 pt-5 position-relative">
+                            <div className="modal-header border-0 pt-5 position-relative ">
                                 <h5 className="modal-title" id="signUpModalLabel">Become a Member</h5>
                                 <button type="button" className="btn btn-close position-absolute"
                                     style={{ top: '16px', right: '16px' }}
@@ -167,7 +167,7 @@ const SignUpModal: React.FC = () => {
                                     <button type="submit" className="btn btn-dark btn-sm w-100">BECOME A MEMBER</button>
                                 </form>
                             </div>
-                        </>
+                        </div>
                     ) : (
                         /* Success State */
                         <div className="modal-body text-center py-5 min-vh-100 min-vh-md-0 d-flex flex-column justify-content-center align-items-center">
