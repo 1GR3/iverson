@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
 
 const AlertIcon = () => {
-    <svg data-testid="geist-icon" height="16" stroke-linejoin="round" viewBox="0 0 16 16" width="16" style="width: 16px; height: 16px; color: var(--ds-red-900);"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.30761 1.5L1.5 5.30761L1.5 10.6924L5.30761 14.5H10.6924L14.5 10.6924V5.30761L10.6924 1.5H5.30761ZM5.10051 0C4.83529 0 4.58094 0.105357 4.3934 0.292893L0.292893 4.3934C0.105357 4.58094 0 4.83529 0 5.10051V10.8995C0 11.1647 0.105357 11.4191 0.292894 11.6066L4.3934 15.7071C4.58094 15.8946 4.83529 16 5.10051 16H10.8995C11.1647 16 11.4191 15.8946 11.6066 15.7071L15.7071 11.6066C15.8946 11.4191 16 11.1647 16 10.8995V5.10051C16 4.83529 15.8946 4.58093 15.7071 4.3934L11.6066 0.292893C11.4191 0.105357 11.1647 0 10.8995 0H5.10051ZM8.75 3.75V4.5V8L8.75 8.75H7.25V8V4.5V3.75H8.75ZM8 12C8.55229 12 9 11.5523 9 11C9 10.4477 8.55229 10 8 10C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12Z" fill="currentColor"></path></svg>
-}
+    return (
+        <svg
+            data-testid="geist-icon"
+            height="16"
+            strokeLinejoin="round"
+            viewBox="0 0 16 16"
+            width="16"
+            style={{ width: 16, height: 16, color: '#FD5300' }}
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M5.30761 1.5L1.5 5.30761L1.5 10.6924L5.30761 14.5H10.6924L14.5 10.6924V5.30761L10.6924 1.5H5.30761ZM5.10051 0C4.83529 0 4.58094 0.105357 4.3934 0.292893L0.292893 4.3934C0.105357 4.58094 0 4.83529 0 5.10051V10.8995C0 11.1647 0.105357 11.4191 0.292894 11.6066L4.3934 15.7071C4.58094 15.8946 4.83529 16 5.10051 16H10.8995C11.1647 16 11.4191 15.8946 11.6066 15.7071L15.7071 11.6066C15.8946 11.4191 16 11.1647 16 10.8995V5.10051C16 4.83529 15.8946 4.58093 15.7071 4.3934L11.6066 0.292893C11.4191 0.105357 11.1647 0 10.8995 0H5.10051ZM8.75 3.75V4.5V8L8.75 8.75H7.25V8V4.5V3.75H8.75ZM8 12C8.55229 12 9 11.5523 9 11C9 10.4477 8.55229 10 8 10C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12Z"
+                fill="currentColor"
+            ></path>
+        </svg>
+    );
+};
+
 
 const SignUpModal: React.FC = () => {
     const [firstName, setFirstName] = useState('');
@@ -22,7 +39,7 @@ const SignUpModal: React.FC = () => {
         if (firstName.trim() === '') {
             return 'First name is required';
         } else if (!/^[a-zA-Z]{2,30}$/.test(firstName)) {
-            return '<AlertIcon /> This is a mandatory field.';
+            return 'This is a mandatory field.';
         }
         return '';
     };
@@ -31,7 +48,7 @@ const SignUpModal: React.FC = () => {
         if (lastName.trim() === '') {
             return 'Last name is required';
         } else if (!/^[a-zA-Z]{2,30}$/.test(lastName)) {
-            return '<AlertIcon /> This is a mandatory field.';
+            return 'This is a mandatory field.';
         }
         return '';
     };
@@ -40,14 +57,14 @@ const SignUpModal: React.FC = () => {
         if (email.trim() === '') {
             return 'Email is required';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return '<AlertIcon /> Please enter a valid email address.';
+            return 'Please enter a valid email address.';
         }
         return '';
     };
 
     const validateTerms = () => {
         if (!acceptedTerms) {
-            return '<AlertIcon /> You must approve the Terms and Privacy Policy.';
+            return 'You must approve the Terms and Privacy Policy.';
         }
         return '';
     };
@@ -98,7 +115,7 @@ const SignUpModal: React.FC = () => {
                                             onChange={(e) => setFirstName(e.target.value)}
                                             required
                                         />
-                                        {errors.firstName && <div className="invalid-feedback">{errors.firstName}</div>}
+                                        {errors.firstName && <div className="invalid-feedback"><AlertIcon />{errors.firstName}</div>}
                                     </div>
 
                                     {/* Last Name Input */}
@@ -113,7 +130,7 @@ const SignUpModal: React.FC = () => {
                                             onChange={(e) => setLastName(e.target.value)}
                                             required
                                         />
-                                        {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
+                                        {errors.lastName && <div className="invalid-feedback"><AlertIcon />{errors.lastName}</div>}
                                     </div>
 
                                     {/* Email Input */}
@@ -128,7 +145,7 @@ const SignUpModal: React.FC = () => {
                                             onChange={(e) => setEmail(e.target.value)}
                                             required
                                         />
-                                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                                        {errors.email && <div className="invalid-feedback"><AlertIcon />{errors.email}</div>}
                                     </div>
 
                                     {/* State Selection */}
@@ -164,10 +181,9 @@ const SignUpModal: React.FC = () => {
                                         <label className="form-check-label" htmlFor="acceptTerms">
                                             By becoming a member, you accept our <a href="terms-and-conditions" className="text-dark" target='_blank'>Terms</a> and <a href="privacy-policy" className="text-dark" target='_blank'>Privacy Policy</a>. <span className="text-danger">*</span>
                                         </label>
-                                        {errors.terms && <div className="invalid-feedback d-block">{errors.terms}</div>}
+                                        {errors.terms && <div className="invalid-feedback d-block"><AlertIcon />{errors.terms}</div>}
                                     </div>
 
-                                    {/* Submit Button */}
                                     <button type="submit" className="btn btn-dark btn-sm w-100">BECOME A MEMBER</button>
                                 </form>
                             </div>
