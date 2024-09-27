@@ -243,6 +243,11 @@ body {
             }
         }
 
+
+        .form-check-input.is-invalid~.form-check-label {
+            color: #111111 !important;
+        }
+
         .btn-outline-dark {
             --bs-btn-border-color: #111111;
             --bs-btn-hover-border-color: #111111;
