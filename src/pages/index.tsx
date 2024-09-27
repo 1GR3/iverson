@@ -87,9 +87,9 @@ const IndexPage: React.FC<PageProps> = () => {
       <EndSection scrollY={scrollY} />
 
       {/* Header */}
-      <animated.header className="position-fixed top-0 w-100 px-4" style={headerFooterSpring}>
+      <animated.header className="position-fixed top-0 w-100 px-3" style={headerFooterSpring}>
         <div className="row">
-          <div className="col-12 col-md-6 mx-auto order-2 order-md-1 py-3">
+          <div className="col-6 col-md-6 mx-0 mx-md-auto order-2 order-md-1 py-3">
             <h1 className="text-start text-md-center">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
           </div>
         </div>
