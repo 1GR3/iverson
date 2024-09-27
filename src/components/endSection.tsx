@@ -19,7 +19,7 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
 
     return (
         <animated.section
-            className="d-flex flex-column justify-content-between min-vh-100 text-center bg-danger position-fixed w-100"
+            className="d-flex flex-column justify-content-between min-vh-100  bg-danger position-fixed w-100"
             style={{
                 top: 0,  // Keep it fixed at the top of the viewport
                 zIndex: 3,  // Ensure it appears on top
@@ -27,12 +27,12 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
             }}
         >
             {/* Header */}
-            <header className="pt-3">
-                <h1 className="fw-bold">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
+            <header className="pt-3 px-3">
+                <h1 className="fw-bold text-start text-md-center col-6 col-md-12">NATIONAL CRYPTOCURRENCY ASSOCIATION</h1>
             </header>
 
             {/* Main content */}
-            <div className="container">
+            <div className="container text-center">
                 <div className="row">
                     <div className="col-12">
                         <p className="text-lines mb-5">
@@ -53,7 +53,7 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
             </div>
 
             {/* Footer with Icons */}
-            <footer className="pb-4">
+            <footer className="pb-4 text-center">
                 <div className="d-flex justify-content-center fs-4">
                     <a href="#" className="mx-2">
                         <i className="bi bi-facebook text-light"></i>
