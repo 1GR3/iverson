@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSpring, animated } from '@react-spring/web';
 
+// Alert Icon Component
 const AlertIcon = () => {
     return (
         <svg
@@ -19,7 +21,6 @@ const AlertIcon = () => {
         </svg>
     );
 };
-
 
 const SignUpModal: React.FC = () => {
     const [firstName, setFirstName] = useState('');
@@ -81,8 +82,24 @@ const SignUpModal: React.FC = () => {
         } else {
             setErrors({ firstName: '', lastName: '', email: '', terms: '' });
             setIsSubmitted(true); // Set the state to show the success message
+            setAnimateMask(true); // Trigger animation when submitted
         }
     };
+
+    // Animation for unmasking the SVG
+    const [animateMask, setAnimateMask] = useState(false);
+    const svgSpring = useSpring({
+        from: { r: 0 }, // Start from 0 to reveal the graphic
+        to: { r: animateMask ? 80 : 0 }, // Expand to reveal the entire graphic
+        reset: true, // Reset the animation when component remounts
+        config: { duration: 1200 }, // Adjust duration as needed
+    });
+
+    useEffect(() => {
+        if (isSubmitted) {
+            setAnimateMask(true); // Ensure the animation runs when submitted
+        }
+    }, [isSubmitted]);
 
     return (
         <div className="modal fade" id="signUpModal" tabIndex={-1} aria-labelledby="signUpModalLabel" aria-hidden="true">
@@ -115,7 +132,8 @@ const SignUpModal: React.FC = () => {
                                             onChange={(e) => setFirstName(e.target.value)}
                                             required
                                         />
-                                        {errors.firstName && <div className="invalid-feedback"><AlertIcon />{errors.firstName}</div>}
+                                        {errors.firstName && <div className="invalid-feedback"><AlertIcon />
+                                            {errors.firstName}</div>}
                                     </div>
 
                                     {/* Last Name Input */}
@@ -154,7 +172,55 @@ const SignUpModal: React.FC = () => {
                                         <select className="form-select" aria-label="Select a state" id="state" defaultValue="">
                                             <option value="" selected>Select a state</option>
                                             <option value="AL">Alabama</option>
-                                            {/* More state options */}
+                                            <option value="AK">Alaska</option>
+                                            <option value="AZ">Arizona</option>
+                                            <option value="AR">Arkansas</option>
+                                            <option value="CA">California</option>
+                                            <option value="CO">Colorado</option>
+                                            <option value="CT">Connecticut</option>
+                                            <option value="DE">Delaware</option>
+                                            <option value="FL">Florida</option>
+                                            <option value="GA">Georgia</option>
+                                            <option value="HI">Hawaii</option>
+                                            <option value="ID">Idaho</option>
+                                            <option value="IL">Illinois</option>
+                                            <option value="IN">Indiana</option>
+                                            <option value="IA">Iowa</option>
+                                            <option value="KS">Kansas</option>
+                                            <option value="KY">Kentucky</option>
+                                            <option value="LA">Louisiana</option>
+                                            <option value="ME">Maine</option>
+                                            <option value="MD">Maryland</option>
+                                            <option value="MA">Massachusetts</option>
+                                            <option value="MI">Michigan</option>
+                                            <option value="MN">Minnesota</option>
+                                            <option value="MS">Mississippi</option>
+                                            <option value="MO">Missouri</option>
+                                            <option value="MT">Montana</option>
+                                            <option value="NE">Nebraska</option>
+                                            <option value="NV">Nevada</option>
+                                            <option value="NH">New Hampshire</option>
+                                            <option value="NJ">New Jersey</option>
+                                            <option value="NM">New Mexico</option>
+                                            <option value="NY">New York</option>
+                                            <option value="NC">North Carolina</option>
+                                            <option value="ND">North Dakota</option>
+                                            <option value="OH">Ohio</option>
+                                            <option value="OK">Oklahoma</option>
+                                            <option value="OR">Oregon</option>
+                                            <option value="PA">Pennsylvania</option>
+                                            <option value="RI">Rhode Island</option>
+                                            <option value="SC">South Carolina</option>
+                                            <option value="SD">South Dakota</option>
+                                            <option value="TN">Tennessee</option>
+                                            <option value="TX">Texas</option>
+                                            <option value="UT">Utah</option>
+                                            <option value="VT">Vermont</option>
+                                            <option value="VA">Virginia</option>
+                                            <option value="WA">Washington</option>
+                                            <option value="WV">West Virginia</option>
+                                            <option value="WI">Wisconsin</option>
+                                            <option value="WY">Wyoming</option>
                                         </select>
                                     </div>
 
@@ -197,17 +263,28 @@ const SignUpModal: React.FC = () => {
                                 data-bs-dismiss="modal" aria-label="Close">
                                 <i className="bi bi-x fs-3"></i>
                             </button>
+
                             <div className="my-5">
                                 <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M77.8336 104.765L68.9424 159.285L63.2741 158.285L73.567 104.011L55.3435 156.16L49.9339 154.192L69.4931 102.533L42.493 150.722L37.5078 147.843L65.7433 100.362L30.7814 143.134L26.3726 139.434L62.4264 97.5747L20.5658 133.628L16.867 129.219L59.6368 94.2591L12.1567 122.493L9.27944 117.508L57.4727 90.5053L5.80907 110.066L3.84006 104.658L55.989 86.4341L1.71487 96.726L0.715469 91.0578L55.2379 82.1668L0 82.8786V77.1226L55.2347 77.8335L0.715469 68.9422L1.71487 63.274L55.9872 73.5663L3.84006 55.3433L5.80907 49.934L57.4705 69.4947L9.27944 42.4932L12.1567 37.508L59.6417 65.7451L16.867 30.7813L20.5658 26.3728L62.4251 62.4247L26.3726 20.566L30.7814 16.8669L65.7442 59.641L37.5078 12.1568L42.493 9.27933L69.4949 57.4711L49.9339 5.80913L55.3435 3.84001L73.5665 55.9876L63.2741 1.71487L68.9424 0.715301L77.8332 55.2343L77.1227 0H82.8785L82.1671 55.238L91.0578 0.715301L96.7261 1.71487L86.4337 55.9898L104.658 3.84001L110.066 5.80913L90.5053 57.4725L117.508 9.27933L122.493 12.1568L94.2578 59.6395L129.219 16.8669L133.629 20.566L97.5774 62.423L139.434 26.3728L143.134 30.7813L100.361 65.7439L147.843 37.508L150.722 42.4932L102.532 69.4938L154.192 49.934L156.16 55.3433L104.013 73.5665L158.285 63.274L159.285 68.9422L104.766 77.8335L160 77.1226V82.8786L104.763 82.1669L159.285 91.0578L158.285 96.726L104.01 86.4338L156.16 104.658L154.192 110.066L102.53 90.5061L150.722 117.508L147.843 122.493L100.366 94.2604L143.134 129.219L139.434 133.628L97.5761 97.5761L133.629 139.434L129.219 143.134L94.2583 100.363L122.493 147.843L117.508 150.722L90.5062 102.53L110.066 154.192L104.658 156.16L86.4337 104.009L96.7261 158.285L91.0578 159.285L82.1671 104.763L82.8785 160H77.1227L77.8336 104.765Z" fill="#F64C07" />
+                                    <defs>
+                                        <mask id="mask">
+                                            <rect width="100%" height="100%" fill="black" />
+                                            {/* Animated expanding circle */}
+                                            <animated.circle cx="80" cy="80" r={svgSpring.r} fill="white" />
+                                        </mask>
+                                    </defs>
+                                    <g mask="url(#mask)">
+                                        {/* Insert your full SVG graphic here */}
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M77.8336 104.765L68.9424 159.285L63.2741 158.285L73.567 104.011L55.3435 156.16L49.9339 154.192L69.4931 102.533L42.493 150.722L37.5078 147.843L65.7433 100.362L30.7814 143.134L26.3726 139.434L62.4264 97.5747L20.5658 133.628L16.867 129.219L59.6368 94.2591L12.1567 122.493L9.27944 117.508L57.4727 90.5053L5.80907 110.066L3.84006 104.658L55.989 86.4341L1.71487 96.726L0.715469 91.0578L55.2379 82.1668L0 82.8786V77.1226L55.2347 77.8335L0.715469 68.9422L1.71487 63.274L55.9872 73.5663L3.84006 55.3433L5.80907 49.934L57.4705 69.4947L9.27944 42.4932L12.1567 37.508L59.6417 65.7451L16.867 30.7813L20.5658 26.3728L62.4251 62.4247L26.3726 20.566L30.7814 16.8669L65.7442 59.641L37.5078 12.1568L42.493 9.27933L69.4949 57.4711L49.9339 5.80913L55.3435 3.84001L73.5665 55.9876L63.2741 1.71487L68.9424 0.715301L77.8332 55.2343L77.1227 0H82.8785L82.1671 55.238L91.0578 0.715301L96.7261 1.71487L86.4337 55.9898L104.658 3.84001L110.066 5.80913L90.5053 57.4725L117.508 9.27933L122.493 12.1568L94.2578 59.6395L129.219 16.8669L133.629 20.566L97.5774 62.423L139.434 26.3728L143.134 30.7813L100.361 65.7439L147.843 37.508L150.722 42.4932L102.532 69.4938L154.192 49.934L156.16 55.3433L104.013 73.5665L158.285 63.274L159.285 68.9422L104.766 77.8335L160 77.1226V82.8786L104.763 82.1669L159.285 91.0578L158.285 96.726L104.01 86.4338L156.16 104.658L154.192 110.066L102.53 90.5061L150.722 117.508L147.843 122.493L100.366 94.2604L143.134 129.219L139.434 133.628L97.5761 97.5761L133.629 139.434L129.219 143.134L94.2583 100.363L122.493 147.843L117.508 150.722L90.5062 102.53L110.066 154.192L104.658 156.16L86.4337 104.009L96.7261 158.285L91.0578 159.285L82.1671 104.763L82.8785 160H77.1227L77.8336 104.765Z" fill="#F64C07" />
+                                    </g>
                                 </svg>
                             </div>
+
                             <p className='mb-5'>Thank you for signing up.</p>
                             <div>
                                 <button type="button" className="btn btn-outline-dark btn-lg" data-bs-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
-
                     )}
                 </div>
             </div>
