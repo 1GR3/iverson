@@ -28,6 +28,7 @@ const IndexPage: React.FC<PageProps> = () => {
         const newScale = Math.min(1 + y / 100, 50);
         api.start({ scale: newScale });
         setScrollY(y);
+        console.log('Current scroll position:', y)
       },
       { domTarget: window }
     );
