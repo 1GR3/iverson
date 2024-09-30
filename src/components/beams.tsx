@@ -11,7 +11,7 @@ const Triangle: React.FC<TriangleProps> = ({ scrollY }) => {
 
     if (safeScrollY >= 3000) {
         const progress = Math.min((safeScrollY - 4100) / 3500, 1);
-        base = progress * 400;
+        base = progress * 285;
     }
 
     return (
@@ -35,7 +35,7 @@ const TriangleQuarter: React.FC<{ scrollY: number; heightPercent: number }> = ({
                 position: 'absolute',
                 transformBox: 'fill-box',
                 top: 0,
-                left: `${i * 0.125}%`,
+                left: `${i * 0.0125}%`,
                 width: '100%',
                 height: '100%',
             }}
@@ -69,7 +69,7 @@ const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
         topBottomPercent: scrollY >= 6750 && scrollY <= 7000
             ? (scrollY - 6750) / 250 * 3 + 50 // Interpolate between 53% and 50%
             : scrollY < 6750
-                ? 53
+                ? 55.5
                 : 50, // After 7000px, it should remain at 50%
         config: { tension: 200, friction: 20 },
     });
