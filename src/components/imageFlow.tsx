@@ -14,38 +14,21 @@ const ImageFlow: React.FC<{ scrollY: number }> = ({ scrollY }) => {
         withPrefix('/images/img06.jpg'),
     ];
 
-    // Define safe zones in percentage to avoid covering the center text
-    const safeZones = {
-        xLeft: { min: 0, max: 30 }, // Left 30% of the screen
-        xRight: { min: 70, max: 100 }, // Right 30% of the screen
-        yTop: { min: 0, max: 30 }, // Top 30% of the screen
-        yBottom: { min: 70, max: 100 }, // Bottom 30% of the screen
-    };
-
-    // Generate random positions for the images in 3D space (using percentages to avoid center text)
-    const imagePositions = React.useMemo(() => {
-        return Array(6).fill(0).map(() => {
-            const isLeftSide = Math.random() > 0.5;
-            const x = isLeftSide
-                ? Math.random() * (safeZones.xLeft.max - safeZones.xLeft.min) + safeZones.xLeft.min
-                : Math.random() * (safeZones.xRight.max - safeZones.xRight.min) + safeZones.xRight.min;
-
-            const isTopSide = Math.random() > 0.5;
-            const y = isTopSide
-                ? Math.random() * (safeZones.yTop.max - safeZones.yTop.min) + safeZones.yTop.min
-                : Math.random() * (safeZones.yBottom.max - safeZones.yBottom.min) + safeZones.yBottom.min;
-
-            const z = Math.random() * 1000 + 1000; // Random Z position (far from the camera)
-
-            return { x, y, z };
-        });
-    }, []);
+    // Predefined positions for each image (x, y in percentages, z in pixels)
+    const imagePositions = [
+        { x: 60, y: 70, z: 1700 }, // Position for image 1
+        { x: 15, y: 55, z: 1500 }, // Position for image 2
+        { x: 95, y: 52, z: 1000 }, // Position for image 3
+        { x: 35, y: 12, z: 1800 }, // Position for image 4
+        { x: 5, y: 9, z: 1300 }, // Position for image 5
+        { x: 75, y: 8, z: 1100 }, // Position for image 6
+    ];
 
     // Get the spring animation for each image based on the scroll position
-    const springs = imagePositions.map((pos, index) =>
+    const springs = imagePositions.map((pos) =>
         useSpring({
             to: {
-                z: -3500 + pos.z + scrollY * 0.75, // Move objects closer by reducing Z when scrolling down
+                z: -2700 + pos.z + scrollY * 0.75, // Move objects closer by reducing Z when scrolling down
             },
             config: { tension: 200, friction: 20 },
         })
@@ -61,7 +44,7 @@ const ImageFlow: React.FC<{ scrollY: number }> = ({ scrollY }) => {
 
     // Function to calculate z-index based on z value
     const calculateZIndex = (z: number) => {
-        const minZ = -400; // Closest visible point
+        const minZ = -500; // Closest visible point
         const maxZ = 1000; // Furthest visible point
         const normalizedZ = Math.min(Math.max(z, minZ), maxZ); // Clamp z within the range
         const zIndex = Math.round(((normalizedZ - minZ) / (maxZ - minZ)) * 100); // Map z to z-index range
@@ -75,7 +58,7 @@ const ImageFlow: React.FC<{ scrollY: number }> = ({ scrollY }) => {
                     key={index}
                     className={"image-box position-absolute d-flex justify-content-center align-items-center"}
                     style={{
-                        transform: spring.z.to(z => `translate3d(${imagePositions[index].x}vw, ${imagePositions[index].y}vh, ${z}px)`), // Use percentage positions for X and Y, avoid covering text
+                        transform: spring.z.to(z => `translate3d(${imagePositions[index].x}vw, ${imagePositions[index].y}vh, ${z}px)`), // Use predefined percentage positions for X and Y
                         opacity: spring.z.to(calculateOpacity), // Fade in/out smoothly based on Z position
                         zIndex: spring.z.to(calculateZIndex), // Set z-index based on Z position
                         width: '200px', // Box size
