@@ -70,6 +70,39 @@ const SignUpModal: React.FC = () => {
         return '';
     };
 
+      // Call the serverless function to submit the form
+  const submitToServerless = async () => {
+    try {
+      const response = await fetch('/api/hubspot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, firstName, lastName }),
+      });
+
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Unknown error occurred');
+      }
+
+      const result = await response.json();
+      if (result.success) {
+        console.log('User added successfully:', result.data);
+        setIsSubmitted(true); // Show success message
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          terms: result.error,
+        }));
+      }
+    } catch (error: any) {
+      console.error('Error submitting to serverless:', error.message);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        terms: 'Error submitting the form. Please try again later.',
+      }));
+    }
+  };
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault(); // Prevent form from submitting
         const firstNameError = validateFirstName();
@@ -81,8 +114,7 @@ const SignUpModal: React.FC = () => {
             setErrors({ firstName: firstNameError, lastName: lastNameError, email: emailError, terms: termsError });
         } else {
             setErrors({ firstName: '', lastName: '', email: '', terms: '' });
-            setIsSubmitted(true); // Set the state to show the success message
-            setAnimateMask(true); // Trigger animation when submitted
+            submitToServerless();
         }
     };
 
@@ -170,7 +202,7 @@ const SignUpModal: React.FC = () => {
                                     <div className="mb-3">
                                         <label htmlFor="state" className="form-label">State</label>
                                         <select className="form-select" aria-label="Select a state" id="state" defaultValue="">
-                                            <option value="" selected>Select a state</option>
+                                            <option value="">Select a state</option>
                                             <option value="AL">Alabama</option>
                                             <option value="AK">Alaska</option>
                                             <option value="AZ">Arizona</option>
@@ -227,7 +259,7 @@ const SignUpModal: React.FC = () => {
                                     {/* Crypto Experience Selection */}
                                     <div className="mb-4">
                                         <label htmlFor="cryptoExperience" className="form-label">Crypto experience</label>
-                                        <select className="form-select" id="cryptoExperience">
+                                        <select className="form-select" id="cryptoExperience" defaultValue="">
                                             <option value="Beginner">I’m new to crypto</option>
                                             <option value="Intermediate">I know a little</option>
                                             <option value="Expert">I know a lot</option>
@@ -275,7 +307,7 @@ const SignUpModal: React.FC = () => {
                                     </defs>
                                     <g mask="url(#mask)">
                                         {/* Insert your full SVG graphic here */}
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M77.8336 104.765L68.9424 159.285L63.2741 158.285L73.567 104.011L55.3435 156.16L49.9339 154.192L69.4931 102.533L42.493 150.722L37.5078 147.843L65.7433 100.362L30.7814 143.134L26.3726 139.434L62.4264 97.5747L20.5658 133.628L16.867 129.219L59.6368 94.2591L12.1567 122.493L9.27944 117.508L57.4727 90.5053L5.80907 110.066L3.84006 104.658L55.989 86.4341L1.71487 96.726L0.715469 91.0578L55.2379 82.1668L0 82.8786V77.1226L55.2347 77.8335L0.715469 68.9422L1.71487 63.274L55.9872 73.5663L3.84006 55.3433L5.80907 49.934L57.4705 69.4947L9.27944 42.4932L12.1567 37.508L59.6417 65.7451L16.867 30.7813L20.5658 26.3728L62.4251 62.4247L26.3726 20.566L30.7814 16.8669L65.7442 59.641L37.5078 12.1568L42.493 9.27933L69.4949 57.4711L49.9339 5.80913L55.3435 3.84001L73.5665 55.9876L63.2741 1.71487L68.9424 0.715301L77.8332 55.2343L77.1227 0H82.8785L82.1671 55.238L91.0578 0.715301L96.7261 1.71487L86.4337 55.9898L104.658 3.84001L110.066 5.80913L90.5053 57.4725L117.508 9.27933L122.493 12.1568L94.2578 59.6395L129.219 16.8669L133.629 20.566L97.5774 62.423L139.434 26.3728L143.134 30.7813L100.361 65.7439L147.843 37.508L150.722 42.4932L102.532 69.4938L154.192 49.934L156.16 55.3433L104.013 73.5665L158.285 63.274L159.285 68.9422L104.766 77.8335L160 77.1226V82.8786L104.763 82.1669L159.285 91.0578L158.285 96.726L104.01 86.4338L156.16 104.658L154.192 110.066L102.53 90.5061L150.722 117.508L147.843 122.493L100.366 94.2604L143.134 129.219L139.434 133.628L97.5761 97.5761L133.629 139.434L129.219 143.134L94.2583 100.363L122.493 147.843L117.508 150.722L90.5062 102.53L110.066 154.192L104.658 156.16L86.4337 104.009L96.7261 158.285L91.0578 159.285L82.1671 104.763L82.8785 160H77.1227L77.8336 104.765Z" fill="#F64C07" />
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M77.8336 104.765L68.9424 159.285L63.2741 158.285L73.567 104.011L55.3435 156.16L49.9339 154.192L69.4931 102.533L42.493 150.722L37.5078 147.843L65.7433 100.362L30.7814 143.134L26.3726 139.434L62.4264 97.5747L20.5658 133.628L16.867 129.219L59.6368 94.2591L12.1567 122.493L9.27944 117.508L57.4727 90.5053L5.80907 110.066L3.84006 104.658L55.989 86.4341L1.71487 96.726L0.715469 91.0578L55.2379 82.1668L0 82.8786V77.1226L55.2347 77.8335L0.715469 68.9422L1.71487 63.274L55.9872 73.5663L3.84006 55.3433L5.80907 49.934L57.4705 69.4947L9.27944 42.4932L12.1567 37.508L59.6417 65.7451L16.867 30.7813L20.5658 26.3728L62.4251 62.4247L26.3726 20.566L30.7814 16.8669L65.7442 59.641L37.5078 12.1568L42.493 9.27933L69.4949 57.4711L49.9339 5.80913L55.3435 3.84001L73.5665 55.9876L63.2741 1.71487L68.9424 0.715301L77.8332 55.2343L77.1227 0H82.8785L82.1671 55.238L91.0578 0.715301L96.7261 1.71487L86.4337 55.9898L104.658 3.84001L110.066 5.80913L90.5053 57.4725L117.508 9.27933L122.493 12.1568L94.2578 59.6395L129.219 16.8669L133.629 20.566L97.5774 62.423L139.434 26.3728L143.134 30.7813L100.361 65.7439L147.843 37.508L150.722 42.4932L102.532 69.4938L154.192 49.934L156.16 55.3433L104.013 73.5665L158.285 63.274L159.285 68.9422L104.766 77.8335L160 77.1226V82.8786L104.763 82.1669L159.285 91.0578L158.285 96.726L104.01 86.4338L156.16 104.658L154.192 110.066L102.53 90.5061L150.722 117.508L147.843 122.493L100.366 94.2604L143.134 129.219L139.434 133.628L97.5761 97.5761L133.629 139.434L129.219 143.134L94.2583 100.363L122.493 147.843L117.508 150.722L90.5062 102.53L110.066 154.192L104.658 156.16L86.4337 104.009L96.7261 158.285L91.0578 159.285L82.1671 104.763L82.8785 160H77.1227L77.8336 104.765Z" fill="#F64C07" />
                                     </g>
                                 </svg>
                             </div>
