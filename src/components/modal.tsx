@@ -70,6 +70,39 @@ const SignUpModal: React.FC = () => {
         return '';
     };
 
+    // Call the serverless function to submit the form
+    const submitToServerless = async () => {
+        try {
+            const response = await fetch('/api/hubspot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, firstName, lastName }),
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                throw new Error(errorResponse.error || 'Unknown error occurred');
+            }
+
+            const result = await response.json();
+            if (result.success) {
+                console.log('User added successfully:', result.data);
+                setIsSubmitted(true); // Show success message
+            } else {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    terms: result.error,
+                }));
+            }
+        } catch (error: any) {
+            console.error('Error submitting to serverless:', error.message);
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                terms: 'Error submitting the form. Please try again later.',
+            }));
+        }
+    };
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault(); // Prevent form from submitting
         const firstNameError = validateFirstName();
@@ -81,8 +114,7 @@ const SignUpModal: React.FC = () => {
             setErrors({ firstName: firstNameError, lastName: lastNameError, email: emailError, terms: termsError });
         } else {
             setErrors({ firstName: '', lastName: '', email: '', terms: '' });
-            setIsSubmitted(true); // Set the state to show the success message
-            setAnimateMask(true); // Trigger animation when submitted
+            submitToServerless();
         }
     };
 
@@ -227,7 +259,7 @@ const SignUpModal: React.FC = () => {
                                     {/* Crypto Experience Selection */}
                                     <div className="mb-4">
                                         <label htmlFor="cryptoExperience" className="form-label">Crypto experience</label>
-                                        <select className="form-select" id="cryptoExperience">
+                                        <select className="form-select" id="cryptoExperience" defaultValue="">
                                             <option value="Beginner">I’m new to crypto</option>
                                             <option value="Intermediate">I know a little</option>
                                             <option value="Expert">I know a lot</option>
