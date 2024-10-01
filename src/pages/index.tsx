@@ -104,7 +104,10 @@ const IndexPage: React.FC<PageProps> = () => {
 
       {/* Footer */}
       <animated.footer className="position-fixed bottom-0 w-100 d-flex justify-content-center" style={footerSpring}>
-        <button type="button" className="btn btn-outline-light btn-lg p-3 mb-3">
+        <button 
+          type="button" 
+          className="btn btn-outline-light btn-lg p-3 mb-3 pulse-animation"
+        >
           <i className="bi bi-chevron-down"></i>
         </button>
       </animated.footer>
