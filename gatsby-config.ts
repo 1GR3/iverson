@@ -59,12 +59,7 @@ const config: GatsbyConfig = {
         },
       },
     },
-    // {
-    //   resolve: "gatsby-source-hubspot-forms",
-    //   options: {
-    //     apiKey: process.env.HUBSPOT_API_KEY,
-    //   },
-    // },
+
   ],
 };
 
