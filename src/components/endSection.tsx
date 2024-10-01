@@ -5,8 +5,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
     // Define the scroll range (8200px to 8700px) for the fade-in effect
-    const fadeStart = 7200;
-    const fadeEnd = 7700;
+    const fadeStart = 7900;
+    const fadeEnd = 8300;
 
     // Calculate the opacity based on the scroll position
     const opacity = Math.min(Math.max((scrollY - fadeStart) / (fadeEnd - fadeStart), 0), 1);
@@ -14,6 +14,14 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
     // Use react-spring for smooth transitions (just for opacity here)
     const spring = useSpring({
         opacity, // Set opacity based on scroll
+        config: { tension: 200, friction: 20 },
+    });
+
+    // New spring for the Twitter icon
+    const twitterSpring = useSpring({
+        opacity: opacity === 1 ? 1 : 0, // Only show when the section is fully visible
+        transform: opacity === 1 ? 'translateY(0)' : 'translateY(20px)', // Add a small animation
+        pointerEvents: opacity === 1 ? 'auto' : 'none', // Disable interaction when not visible
         config: { tension: 200, friction: 20 },
     });
 
@@ -36,13 +44,14 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
                 <div className="row">
                     <div className="col-12">
                         <p className="text-lines mb-5">
-                            We give you the tools needed to<br />
-                            unlock the full potential of crypto.
+                            We are the National <br />
+                            Cryptocurrency Association.
                         </p>
                         <p className="text-lines mb-5">
-                            Whether you're just getting started<br />
-                            or leading the charge, join us in showing<br />
-                            that crypto is here for good.
+                            Whether you’re just getting started<br />
+                            or leading the charge—if you believe crypto 
+                            <br />
+                            is here for good, we are here for you.
                         </p>
 
                         <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#signUpModal">
@@ -54,20 +63,20 @@ const EndSection: React.FC<{ scrollY: number }> = ({ scrollY }) => {
 
             {/* Footer with Icons */}
             <footer className="pb-4 text-center">
-                <div className="d-flex justify-content-center fs-4">
-                    <a href="#" className="mx-2">
-                        <i className="bi bi-facebook text-light"></i>
-                    </a>
-                    <a href="#" className="mx-2">
+                <animated.div className="d-flex justify-content-center fs-4" style={{
+                    opacity: twitterSpring.opacity,
+                    transform: twitterSpring.transform,
+                    pointerEvents: twitterSpring.pointerEvents as any
+                }}>
+                    <a 
+                        href="https://x.com/NatCryptoAssoc" 
+                        className="mx-2"
+                        aria-hidden={opacity !== 1}
+                        tabIndex={opacity === 1 ? 0 : -1}
+                    >
                         <i className="bi bi-twitter-x"></i>
                     </a>
-                    <a href="#" className="mx-2">
-                        <i className="bi bi-instagram"></i>
-                    </a>
-                    <a href="#" className="mx-2">
-                        <i className="bi bi-linkedin"></i>
-                    </a>
-                </div>
+                </animated.div>
             </footer>
         </animated.section>
     );
