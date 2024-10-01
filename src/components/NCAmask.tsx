@@ -11,8 +11,13 @@ const NCAmask: React.FC<NCAgraphicProps> = ({ onAnimationComplete }) => {
         from: { r: 0 },
         to: { r: 1000 }, // Large enough to fill the screen
         config: {
-            duration: 3500,        // Duration in milliseconds
-            easing: t => t * (2 - t) // A simple ease-out function for easing
+            duration: 2000, // Reduced duration from 3500ms to 1500ms
+            easing: t => {
+                // Custom easing function for more expressive in/out
+                return t < 0.5
+                    ? 4 * t * t * t
+                    : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
         },
         onRest: onAnimationComplete, // Call this when the animation completes
     });
