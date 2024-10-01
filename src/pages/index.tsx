@@ -16,19 +16,17 @@ const isBrowser = typeof window !== "undefined";
 if (isBrowser) {
   import('bootstrap/dist/js/bootstrap.bundle.min.js');
 }
+
 const IndexPage: React.FC<PageProps> = () => {
-  const [{ scale }, api] = useSpring(() => ({ scale: 1 }));
   const [scrollY, setScrollY] = React.useState(0);
   const [isMaskVisible, setIsMaskVisible] = React.useState(true);
 
-  const isBrowser = typeof window !== "undefined";
+  // Use scroll to update scroll position
   if (isBrowser) {
     useScroll(
       ({ xy: [, y] }) => {
-        const newScale = Math.min(1 + y / 100, 50);
-        api.start({ scale: newScale });
         setScrollY(y);
-        console.log('Current scroll position:', y)
+        console.log('Current scroll position:', y);
       },
       { domTarget: window }
     );
@@ -56,23 +54,7 @@ const IndexPage: React.FC<PageProps> = () => {
     <div className="overflow-hidden" style={{ minHeight: '10000px' }}>
       {/* Render NCAgraphic only when NCAmask is not visible */}
       {!isMaskVisible && (
-        <animated.div
-          style={{
-            width: '100vw',
-            height: '100vh',
-            scale,
-            transformOrigin: '0% 0%',
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            transform: 'translate(-50%, -50%)',
-          }}
-        >
-          <NCAgraphic scrollY={scrollY} />
-        </animated.div>
+        <NCAgraphic scrollY={scrollY} />
       )}
 
       {/* Show NCAmask while it's visible */}
@@ -104,8 +86,8 @@ const IndexPage: React.FC<PageProps> = () => {
 
       {/* Footer */}
       <animated.footer className="position-fixed bottom-0 w-100 d-flex justify-content-center" style={footerSpring}>
-        <button 
-          type="button" 
+        <button
+          type="button"
           className="btn btn-outline-light btn-lg p-3 mb-3 pulse-animation"
         >
           <i className="bi bi-chevron-down"></i>
@@ -135,4 +117,4 @@ export const Head: HeadFC = () => (
     <meta name="twitter:description" content="Whether you’re just getting started or leading the charge—if you believe crypto is here for good, we are here for you." />
     <meta name="twitter:image" content="https://www.national-cryptocurrency-association.org/og-image.jpg" />
   </>
-)
+);
