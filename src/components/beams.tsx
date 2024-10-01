@@ -9,8 +9,8 @@ const Triangle: React.FC<TriangleProps> = ({ scrollY }) => {
     const safeScrollY = !isNaN(scrollY) ? scrollY : 0;
     let base = 0;
 
-    if (safeScrollY >= 3000) {
-        const progress = Math.min((safeScrollY - 4100) / 3500, 1);
+    if (safeScrollY >= 4000) {
+        const progress = Math.min((safeScrollY - 5000) / 3500, 1);
         base = progress * 285;
     }
 
@@ -52,26 +52,26 @@ const TriangleQuarter: React.FC<{ scrollY: number; heightPercent: number }> = ({
 };
 
 const Beams: React.FC<{ scrollY: number }> = ({ scrollY }) => {
-    const beamAnimations = [{ fadeIn: 4100, fadeOut: 9400 }];
+    const beamAnimations = [{ fadeIn: 5000, fadeOut: 10300 }];
     const currentIndex = beamAnimations.findIndex(
         (item) => scrollY >= item.fadeIn && scrollY <= item.fadeOut
     );
 
     const heightSpring = useSpring({
-        heightPercent: scrollY >= 4100 && scrollY <= 9400
-            ? Math.min(50, Math.max(1, (scrollY - 4100) / (6400 - 4100) * 50))
+        heightPercent: scrollY >= 5000 && scrollY <= 10300
+            ? Math.min(50, Math.max(1, (scrollY - 5000) / (7300 - 5000) * 50))
             : 1,
-        config: { tension: 200, friction: 20 },
+        config: { tension: 40, friction: 10 },
     });
 
     // Spring for top/bottom position transition
     const positionSpring = useSpring({
-        topBottomPercent: scrollY >= 6750 && scrollY <= 7000
-            ? (scrollY - 6750) / 250 * 3 + 50 // Interpolate between 53% and 50%
-            : scrollY < 6750
+        topBottomPercent: scrollY >= 7000 && scrollY <= 7900
+            ? Math.max(50, 55.5 - (scrollY - 7000) / 900 * 5.5) // Interpolate from 55.5% to 50%
+            : scrollY < 7000
                 ? 55.5
-                : 50, // After 7000px, it should remain at 50%
-        config: { tension: 200, friction: 20 },
+                : 50, // After 7900px, it should remain at 50%
+        config: { tension: 100, friction: 10 },
     });
 
     return (
