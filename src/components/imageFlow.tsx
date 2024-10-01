@@ -24,27 +24,30 @@ const ImageFlow: React.FC<{ scrollY: number }> = ({ scrollY }) => {
         { x: 75, y: 8, z: 1100 }, // Position for image 6
     ];
 
+    // Adjust this value to control how much scroll affects the animation
+    const scrollMultiplier = .7; // Reduced from 0.3 to 0.15 for even slower movement
+
     // Get the spring animation for each image based on the scroll position
     const springs = imagePositions.map((pos) =>
         useSpring({
             to: {
-                z: -2700 + pos.z + scrollY * 0.75, // Move objects closer by reducing Z when scrolling down
+                z: -2000 + pos.z + scrollY * scrollMultiplier, // Adjusted starting point and multiplier
             },
             config: { tension: 200, friction: 20 },
         })
     );
 
-    // Function to calculate smooth opacity transitions
+    // Adjust the opacity calculation range for longer fade in/out
     const calculateOpacity = (z: number) => {
-        if (z <= -400) return 0; // Completely invisible before -400px
-        if (z > -400 && z <= 0) return (z + 400) / 400; // Fade in between -400px and 0px
-        if (z > 0 && z <= 100) return 1 - (z / 100); // Fade out between 0px and 100px
-        return 0; // Invisible after 100px
+        if (z <= -2000) return 0; // Completely invisible before -2000px
+        if (z > -2000 && z <= 0) return (z + 2000) / 2000; // Fade in between -2000px and 0px
+        if (z > 0 && z <= 800) return 1 - (z / 800); // Fade out between 0px and 800px
+        return 0; // Invisible after 800px
     };
 
     // Function to calculate z-index based on z value
     const calculateZIndex = (z: number) => {
-        const minZ = -500; // Closest visible point
+        const minZ = -800; // Closest visible point
         const maxZ = 1000; // Furthest visible point
         const normalizedZ = Math.min(Math.max(z, minZ), maxZ); // Clamp z within the range
         const zIndex = Math.round(((normalizedZ - minZ) / (maxZ - minZ)) * 100); // Map z to z-index range
@@ -95,27 +98,36 @@ const ParentComponent: React.FC = () => {
         );
     }
 
-    // Define the scroll threshold for showing ImageFlow
-    const currentIndex = scrollY >= 1251 && scrollY <= 3500 ? 1 : -1;
+    // Adjusted values for earlier start and earlier end
+    const startScroll = 1500;
+    const fullOpacityScroll = 2000;
+    const startFadeOutScroll = 3500;
+    const endScroll = 4000;
 
-    // Use spring for smooth transition of opacity (show/hide ImageFlow)
+    // Calculate opacity based on scroll position
+    const calculateOpacity = () => {
+        if (scrollY < startScroll) return 0;
+        if (scrollY >= startScroll && scrollY < fullOpacityScroll) {
+            return (scrollY - startScroll) / (fullOpacityScroll - startScroll);
+        }
+        if (scrollY >= fullOpacityScroll && scrollY < startFadeOutScroll) return 1;
+        if (scrollY >= startFadeOutScroll && scrollY < endScroll) {
+            return 1 - (scrollY - startFadeOutScroll) / (endScroll - startFadeOutScroll);
+        }
+        return 0;
+    };
+
+    // Use spring for smooth transition of opacity
     const spring = useSpring({
-        opacity: currentIndex !== -1 ? 1 : 0,
+        opacity: calculateOpacity(),
         config: { tension: 200, friction: 20 },
     });
 
     return (
         <div>
-            {/* Conditionally render the ImageFlow when the threshold is passed */}
-            {currentIndex !== -1 && (
-                <animated.div
-                    style={{
-                        opacity: spring.opacity,
-                    }}
-                >
-                    <ImageFlow scrollY={scrollY} />
-                </animated.div>
-            )}
+            <animated.div style={spring}>
+                <ImageFlow scrollY={Math.max(0, scrollY - startScroll)} />
+            </animated.div>
         </div>
     );
 };
